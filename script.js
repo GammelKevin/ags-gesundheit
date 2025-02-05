@@ -14,26 +14,38 @@ document.addEventListener('DOMContentLoaded', function() {
     const themeSwitch = document.querySelector('.theme-switch');
     
     if (logoIntro && pageContent) {
-        // Initial state
-        pageContent.style.opacity = '0';
-        pageContent.style.transform = 'translateY(20px)';
+        const hasSeenIntro = sessionStorage.getItem('hasSeenIntro');
         
-        // Show logo intro
-        setTimeout(() => {
-            logoIntro.classList.add('active');
-        }, 300);
-        
-        // Hide logo intro and show content
-        setTimeout(() => {
-            logoIntro.classList.add('fade-out');
+        if (!hasSeenIntro) {
+            // Initial state
+            pageContent.style.opacity = '0';
+            pageContent.style.transform = 'translateY(20px)';
+            
+            // Show logo intro
+            setTimeout(() => {
+                logoIntro.classList.add('active');
+            }, 300);
+            
+            // Hide logo intro and show content
+            setTimeout(() => {
+                logoIntro.classList.add('fade-out');
+                pageContent.style.opacity = '1';
+                pageContent.style.transform = 'translateY(0)';
+            }, 2000);
+            
+            // Remove logo intro from DOM after animation
+            setTimeout(() => {
+                logoIntro.style.display = 'none';
+            }, 3000);
+            
+            // Mark that user has seen intro
+            sessionStorage.setItem('hasSeenIntro', 'true');
+        } else {
+            // Skip intro if already seen
+            logoIntro.style.display = 'none';
             pageContent.style.opacity = '1';
             pageContent.style.transform = 'translateY(0)';
-        }, 2000);
-        
-        // Remove logo intro from DOM after animation
-        setTimeout(() => {
-            logoIntro.style.display = 'none';
-        }, 3000);
+        }
     }
 
     // Theme Switch

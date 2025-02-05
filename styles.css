@@ -588,3 +588,35 @@ footer {
 .theme-switch .fa-moon {
     opacity: 1;
 }
+
+/* Form Container */
+.form-container {
+    background: var(--bg-light);
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.back-button {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+}
+
+.back-button .btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.back-button .btn:hover {
+    transform: translateX(-5px);
+}
+
+.back-button i {
+    font-size: 0.8rem;
+}

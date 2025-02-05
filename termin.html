@@ -32,142 +32,147 @@
     <div class="page-content">
         <div class="appointment-section">
             <div class="container">
-                <h2 class="text-center mb-5">Terminanfrage</h2>
                 <div class="row justify-content-center">
                     <div class="col-md-8">
-                        <!-- Progress Bar -->
-                        <div class="progress">
-                            <div class="progress-bar" role="progressbar" style="width: 0%"></div>
-                        </div>
-
-                        <!-- Step Dots -->
-                        <div class="step-indicator">
-                            <div class="step-dot active" data-step="1"></div>
-                            <div class="step-dot" data-step="2"></div>
-                            <div class="step-dot" data-step="3"></div>
-                            <div class="step-dot" data-step="4"></div>
-                        </div>
-
-                        <form id="appointmentForm" action="https://api.web3forms.com/submit" method="POST" class="appointment-form">
-                            <input type="hidden" name="access_key" value="d3086d53-cbd7-4307-a3b7-79f87e8528e6">
-                            <input type="hidden" name="subject" value=" Neue Terminanfrage - AGS Gesundheit">
-                            <input type="hidden" name="from_name" value="AGS Gesundheit Website">
-                            <input type="hidden" name="redirect" value="https://ags-gesundheit.netlify.app/danke.html">
-
-                            <!-- Step 1: Persönliche Daten -->
-                            <div class="form-step active" data-step="1">
-                                <h4 class="mb-4">Persönliche Daten</h4>
-                                <div class="mb-3">
-                                    <label for="name" class="form-label">Name</label>
-                                    <input type="text" class="form-control" id="name" name=" Name" required>
+                        <div class="form-container">
+                            <div class="back-button">
+                                <a href="index.html" class="btn btn-outline-primary">
+                                    <i class="fas fa-arrow-left"></i> Zurück
+                                </a>
+                            </div>
+                            <h2 class="text-center mb-4">Termin vereinbaren</h2>
+                            <div class="progress-container">
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" style="width: 0%"></div>
                                 </div>
-                                <div class="mb-3">
-                                    <label for="email" class="form-label">E-Mail</label>
-                                    <input type="email" class="form-control" id="email" name=" E-Mail" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="phone" class="form-label">Telefon</label>
-                                    <input type="tel" class="form-control" id="phone" name=" Telefon" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="birthdate" class="form-label">Geburtsdatum</label>
-                                    <input type="date" class="form-control" id="birthdate" name=" Geburtsdatum" required>
-                                </div>
-                                <div class="form-navigation">
-                                    <button type="button" class="btn btn-primary next-step">Weiter</button>
+                                <div class="step-dots">
+                                    <span class="step-dot active" data-step="1"></span>
+                                    <span class="step-dot" data-step="2"></span>
+                                    <span class="step-dot" data-step="3"></span>
+                                    <span class="step-dot" data-step="4"></span>
                                 </div>
                             </div>
+                            <form id="appointmentForm" action="https://api.web3forms.com/submit" method="POST" class="appointment-form">
+                                <input type="hidden" name="access_key" value="d3086d53-cbd7-4307-a3b7-79f87e8528e6">
+                                <input type="hidden" name="subject" value=" Neue Terminanfrage - AGS Gesundheit">
+                                <input type="hidden" name="from_name" value="AGS Gesundheit Website">
+                                <input type="hidden" name="redirect" value="https://ags-gesundheit.netlify.app/danke.html">
 
-                            <!-- Step 2: Behandlung -->
-                            <div class="form-step" data-step="2">
-                                <h4 class="mb-4">Gewünschte Behandlung</h4>
-                                <div class="mb-3">
-                                    <label for="treatment" class="form-label">Behandlungsart</label>
-                                    <select class="form-select" id="treatment" name=" Behandlung" required>
-                                        <option value="">Bitte wählen...</option>
-                                        <option value="Physiotherapie">Physiotherapie</option>
-                                        <option value="Massage">Massage</option>
-                                        <option value="Fitness">Fitness & Training</option>
-                                        <option value="Sonstiges">Sonstiges</option>
-                                    </select>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="description" class="form-label">Beschwerden/Anliegen</label>
-                                    <textarea class="form-control" id="description" name=" Beschwerden" rows="3" required></textarea>
-                                </div>
-                                <div class="form-navigation">
-                                    <button type="button" class="btn btn-secondary prev-step">Zurück</button>
-                                    <button type="button" class="btn btn-primary next-step">Weiter</button>
-                                </div>
-                            </div>
-
-                            <!-- Step 3: Termin -->
-                            <div class="form-step" data-step="3">
-                                <h4 class="mb-4">Wunschtermin</h4>
-                                <div class="mb-3">
-                                    <label for="date" class="form-label">Datum</label>
-                                    <input type="date" class="form-control" id="date" name=" Datum" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="time" class="form-label">Uhrzeit</label>
-                                    <select class="form-select" id="time" name=" Uhrzeit" required>
-                                        <option value="">Bitte wählen...</option>
-                                        <option value="08:00">08:00 Uhr</option>
-                                        <option value="09:00">09:00 Uhr</option>
-                                        <option value="10:00">10:00 Uhr</option>
-                                        <option value="11:00">11:00 Uhr</option>
-                                        <option value="12:00">12:00 Uhr</option>
-                                        <option value="13:00">13:00 Uhr</option>
-                                        <option value="14:00">14:00 Uhr</option>
-                                        <option value="15:00">15:00 Uhr</option>
-                                        <option value="16:00">16:00 Uhr</option>
-                                        <option value="17:00">17:00 Uhr</option>
-                                    </select>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="altDates" class="form-label">Alternative Termine (optional)</label>
-                                    <textarea class="form-control" id="altDates" name=" Alternative Termine" rows="2"></textarea>
-                                </div>
-                                <div class="form-navigation">
-                                    <button type="button" class="btn btn-secondary prev-step">Zurück</button>
-                                    <button type="button" class="btn btn-primary next-step">Weiter</button>
-                                </div>
-                            </div>
-
-                            <!-- Step 4: Zusatzinfos -->
-                            <div class="form-step" data-step="4">
-                                <h4 class="mb-4">Zusätzliche Informationen</h4>
-                                <div class="mb-3">
-                                    <label for="insurance" class="form-label">Krankenkasse</label>
-                                    <input type="text" class="form-control" id="insurance" name=" Krankenkasse" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label d-block">Überweisungsschein vorhanden? *</label>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name=" Überweisungsschein" id="referralYes" value="Ja" required>
-                                        <label class="form-check-label" for="referralYes">Ja</label>
+                                <!-- Step 1: Persönliche Daten -->
+                                <div class="form-step active" data-step="1">
+                                    <h4 class="mb-4">Persönliche Daten</h4>
+                                    <div class="mb-3">
+                                        <label for="name" class="form-label">Name</label>
+                                        <input type="text" class="form-control" id="name" name=" Name" required>
                                     </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name=" Überweisungsschein" id="referralNo" value="Nein" required>
-                                        <label class="form-check-label" for="referralNo">Nein</label>
+                                    <div class="mb-3">
+                                        <label for="email" class="form-label">E-Mail</label>
+                                        <input type="email" class="form-control" id="email" name=" E-Mail" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="phone" class="form-label">Telefon</label>
+                                        <input type="tel" class="form-control" id="phone" name=" Telefon" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="birthdate" class="form-label">Geburtsdatum</label>
+                                        <input type="date" class="form-control" id="birthdate" name=" Geburtsdatum" required>
+                                    </div>
+                                    <div class="form-navigation">
+                                        <button type="button" class="btn btn-primary next-step">Weiter</button>
                                     </div>
                                 </div>
-                                <div class="mb-3">
-                                    <label for="notes" class="form-label">Weitere Anmerkungen</label>
-                                    <textarea class="form-control" id="notes" name=" Anmerkungen" rows="3"></textarea>
+
+                                <!-- Step 2: Behandlung -->
+                                <div class="form-step" data-step="2">
+                                    <h4 class="mb-4">Gewünschte Behandlung</h4>
+                                    <div class="mb-3">
+                                        <label for="treatment" class="form-label">Behandlungsart</label>
+                                        <select class="form-select" id="treatment" name=" Behandlung" required>
+                                            <option value="">Bitte wählen...</option>
+                                            <option value="Physiotherapie">Physiotherapie</option>
+                                            <option value="Massage">Massage</option>
+                                            <option value="Fitness">Fitness & Training</option>
+                                            <option value="Sonstiges">Sonstiges</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="description" class="form-label">Beschwerden/Anliegen</label>
+                                        <textarea class="form-control" id="description" name=" Beschwerden" rows="3" required></textarea>
+                                    </div>
+                                    <div class="form-navigation">
+                                        <button type="button" class="btn btn-secondary prev-step">Zurück</button>
+                                        <button type="button" class="btn btn-primary next-step">Weiter</button>
+                                    </div>
                                 </div>
-                                <div class="mb-3 form-check">
-                                    <input type="checkbox" class="form-check-input" id="privacy" name="privacy" required>
-                                    <label class="form-check-label" for="privacy">
-                                        Ich stimme der Verarbeitung meiner Daten gemäß der Datenschutzerklärung zu *
-                                    </label>
+
+                                <!-- Step 3: Termin -->
+                                <div class="form-step" data-step="3">
+                                    <h4 class="mb-4">Wunschtermin</h4>
+                                    <div class="mb-3">
+                                        <label for="date" class="form-label">Datum</label>
+                                        <input type="date" class="form-control" id="date" name=" Datum" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="time" class="form-label">Uhrzeit</label>
+                                        <select class="form-select" id="time" name=" Uhrzeit" required>
+                                            <option value="">Bitte wählen...</option>
+                                            <option value="08:00">08:00 Uhr</option>
+                                            <option value="09:00">09:00 Uhr</option>
+                                            <option value="10:00">10:00 Uhr</option>
+                                            <option value="11:00">11:00 Uhr</option>
+                                            <option value="12:00">12:00 Uhr</option>
+                                            <option value="13:00">13:00 Uhr</option>
+                                            <option value="14:00">14:00 Uhr</option>
+                                            <option value="15:00">15:00 Uhr</option>
+                                            <option value="16:00">16:00 Uhr</option>
+                                            <option value="17:00">17:00 Uhr</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="altDates" class="form-label">Alternative Termine (optional)</label>
+                                        <textarea class="form-control" id="altDates" name=" Alternative Termine" rows="2"></textarea>
+                                    </div>
+                                    <div class="form-navigation">
+                                        <button type="button" class="btn btn-secondary prev-step">Zurück</button>
+                                        <button type="button" class="btn btn-primary next-step">Weiter</button>
+                                    </div>
                                 </div>
-                                <div class="form-navigation">
-                                    <button type="button" class="btn btn-secondary prev-step">Zurück</button>
-                                    <button type="submit" class="btn btn-success">Anfrage absenden</button>
+
+                                <!-- Step 4: Zusatzinfos -->
+                                <div class="form-step" data-step="4">
+                                    <h4 class="mb-4">Zusätzliche Informationen</h4>
+                                    <div class="mb-3">
+                                        <label for="insurance" class="form-label">Krankenkasse</label>
+                                        <input type="text" class="form-control" id="insurance" name=" Krankenkasse" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label d-block">Überweisungsschein vorhanden? *</label>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name=" Überweisungsschein" id="referralYes" value="Ja" required>
+                                            <label class="form-check-label" for="referralYes">Ja</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name=" Überweisungsschein" id="referralNo" value="Nein" required>
+                                            <label class="form-check-label" for="referralNo">Nein</label>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="notes" class="form-label">Weitere Anmerkungen</label>
+                                        <textarea class="form-control" id="notes" name=" Anmerkungen" rows="3"></textarea>
+                                    </div>
+                                    <div class="mb-3 form-check">
+                                        <input type="checkbox" class="form-check-input" id="privacy" name="privacy" required>
+                                        <label class="form-check-label" for="privacy">
+                                            Ich stimme der Verarbeitung meiner Daten gemäß der Datenschutzerklärung zu *
+                                        </label>
+                                    </div>
+                                    <div class="form-navigation">
+                                        <button type="button" class="btn btn-secondary prev-step">Zurück</button>
+                                        <button type="submit" class="btn btn-success">Anfrage absenden</button>
+                                    </div>
                                 </div>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
