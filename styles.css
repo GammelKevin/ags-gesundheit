@@ -121,6 +121,39 @@ p, li {
     }
 }
 
+/* Logo Intro Animation */
+.logo-intro {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--bg-dark);
+    z-index: 9999;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.8s ease-out, visibility 0.8s ease-out;
+}
+
+.logo-intro.active svg {
+    transform: scale(1.2);
+}
+
+.logo-intro.fade-out {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.logo-intro svg {
+    width: 200px;
+    height: auto;
+    transform: scale(0.8);
+    transition: transform 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 /* Sections */
 section {
     padding: 5rem 0;
@@ -295,6 +328,23 @@ section {
     overflow: hidden;
 }
 
+/* Page Content */
+.page-content {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    min-height: 100vh;
+    position: relative;
+    z-index: 1;
+    background: var(--bg-dark);
+}
+
+.page-loaded .page-content {
+    opacity: 1;
+    transform: translateY(0);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 /* Buttons */
 .btn {
     padding: 0.75rem 1.5rem;
@@ -438,54 +488,6 @@ footer {
         width: 100%;
         margin-bottom: 0.5rem;
     }
-}
-
-/* Page Loading Animation */
-.page-content {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-    min-height: 100vh;
-    position: relative;
-    z-index: 1;
-}
-
-.page-loaded .page-content {
-    opacity: 1;
-    transform: translateY(0);
-    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.logo-intro {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: var(--bg-dark);
-    z-index: 9999;
-    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.logo-intro.fade-out {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-}
-
-.logo-intro svg {
-    width: 150px;
-    transform: scale(0.5);
-    opacity: 0;
-    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.logo-intro.active svg {
-    transform: scale(1);
-    opacity: 1;
 }
 
 /* Theme Switch */

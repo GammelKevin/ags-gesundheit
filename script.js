@@ -8,100 +8,193 @@ document.addEventListener('DOMContentLoaded', function() {
     const prevButtons = document.querySelectorAll('.prev-step');
     let currentStep = 1;
 
-    // Update Progress Bar and Step Dots
-    function updateProgress() {
-        const progress = ((currentStep - 1) / (steps.length - 1)) * 100;
-        progressBar.style.width = `${progress}%`;
+    // Logo Intro Animation
+    const logoIntro = document.querySelector('.logo-intro');
+    const pageContent = document.querySelector('.page-content');
+    const themeSwitch = document.querySelector('.theme-switch');
+    
+    if (logoIntro && pageContent) {
+        // Initial state
+        pageContent.style.opacity = '0';
+        pageContent.style.transform = 'translateY(20px)';
         
-        // Update step dots
-        stepDots.forEach((dot, index) => {
-            if (index + 1 < currentStep) {
-                dot.classList.add('active');
-                dot.style.backgroundColor = 'var(--success-color)';
-            } else if (index + 1 === currentStep) {
-                dot.classList.add('active');
-                dot.style.backgroundColor = 'var(--primary-color)';
-            } else {
-                dot.classList.remove('active');
-                dot.style.backgroundColor = '';
-            }
-        });
+        // Show logo intro
+        setTimeout(() => {
+            logoIntro.classList.add('active');
+        }, 300);
+        
+        // Hide logo intro and show content
+        setTimeout(() => {
+            logoIntro.classList.add('fade-out');
+            pageContent.style.opacity = '1';
+            pageContent.style.transform = 'translateY(0)';
+        }, 2000);
+        
+        // Remove logo intro from DOM after animation
+        setTimeout(() => {
+            logoIntro.style.display = 'none';
+        }, 3000);
     }
 
-    // Show Step with Animation
-    function showStep(stepNumber) {
-        const currentStepElement = document.querySelector(`[data-step="${currentStep}"]`);
-        const nextStepElement = document.querySelector(`[data-step="${stepNumber}"]`);
-        
-        // Hide current step
-        if (currentStepElement) {
-            currentStepElement.style.opacity = '0';
-            currentStepElement.style.transform = stepNumber > currentStep ? 
-                'translateX(-50px) scale(0.95)' : 'translateX(50px) scale(0.95)';
+    // Theme Switch
+    if (themeSwitch) {
+        themeSwitch.addEventListener('click', () => {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
             
-            setTimeout(() => {
-                currentStepElement.classList.remove('active');
-                
-                // Show next step
-                nextStepElement.classList.add('active');
-                setTimeout(() => {
-                    nextStepElement.style.opacity = '1';
-                    nextStepElement.style.transform = 'translateX(0) scale(1)';
-                }, 50);
-            }, 300);
-        } else {
-            nextStepElement.classList.add('active');
-            nextStepElement.style.opacity = '1';
-            nextStepElement.style.transform = 'translateX(0) scale(1)';
-        }
+            html.setAttribute('data-theme', newTheme);
+            themeSwitch.classList.toggle('light');
+            
+            // Save theme preference
+            localStorage.setItem('theme', newTheme);
+        });
         
-        currentStep = stepNumber;
-        updateProgress();
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            if (savedTheme === 'light') {
+                themeSwitch.classList.add('light');
+            }
+        }
     }
 
-    // Validate Current Step
-    function validateStep(stepNumber) {
-        const currentStepElement = document.querySelector(`[data-step="${stepNumber}"]`);
-        const requiredFields = currentStepElement.querySelectorAll('[required]');
-        let isValid = true;
+    // Form functionality
+    if (form) {
+        // Update Progress Bar and Step Dots
+        function updateProgress() {
+            const progress = ((currentStep - 1) / (steps.length - 1)) * 100;
+            progressBar.style.width = `${progress}%`;
+            
+            // Update step dots
+            stepDots.forEach((dot, index) => {
+                if (index + 1 < currentStep) {
+                    dot.classList.add('active');
+                    dot.style.backgroundColor = 'var(--success-color)';
+                } else if (index + 1 === currentStep) {
+                    dot.classList.add('active');
+                    dot.style.backgroundColor = 'var(--primary-color)';
+                } else {
+                    dot.classList.remove('active');
+                    dot.style.backgroundColor = '';
+                }
+            });
+        }
 
-        requiredFields.forEach(field => {
-            if (!field.value) {
-                isValid = false;
-                field.classList.add('is-invalid');
-                field.classList.remove('is-valid');
+        // Show Step with Animation
+        function showStep(stepNumber) {
+            const currentStepElement = document.querySelector(`[data-step="${currentStep}"]`);
+            const nextStepElement = document.querySelector(`[data-step="${stepNumber}"]`);
+            
+            // Hide current step
+            if (currentStepElement) {
+                currentStepElement.style.opacity = '0';
+                currentStepElement.style.transform = stepNumber > currentStep ? 
+                    'translateX(-50px) scale(0.95)' : 'translateX(50px) scale(0.95)';
                 
-                // Shake animation for invalid fields
-                field.style.animation = 'none';
-                field.offsetHeight; // Trigger reflow
-                field.style.animation = 'shake 0.5s ease-in-out';
+                setTimeout(() => {
+                    currentStepElement.classList.remove('active');
+                    
+                    // Show next step
+                    nextStepElement.classList.add('active');
+                    setTimeout(() => {
+                        nextStepElement.style.opacity = '1';
+                        nextStepElement.style.transform = 'translateX(0) scale(1)';
+                    }, 50);
+                }, 300);
             } else {
-                field.classList.remove('is-invalid');
-                field.classList.add('is-valid');
+                nextStepElement.classList.add('active');
+                nextStepElement.style.opacity = '1';
+                nextStepElement.style.transform = 'translateX(0) scale(1)';
             }
+            
+            currentStep = stepNumber;
+            updateProgress();
+        }
+
+        // Validate Current Step
+        function validateStep(stepNumber) {
+            const currentStepElement = document.querySelector(`[data-step="${stepNumber}"]`);
+            const requiredFields = currentStepElement.querySelectorAll('[required]');
+            let isValid = true;
+
+            requiredFields.forEach(field => {
+                if (!field.value) {
+                    isValid = false;
+                    field.classList.add('is-invalid');
+                    field.classList.remove('is-valid');
+                    
+                    // Shake animation for invalid fields
+                    field.style.animation = 'none';
+                    field.offsetHeight; // Trigger reflow
+                    field.style.animation = 'shake 0.5s ease-in-out';
+                } else {
+                    field.classList.remove('is-invalid');
+                    field.classList.add('is-valid');
+                }
+            });
+
+            return isValid;
+        }
+
+        // Next/Previous buttons
+        nextButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                if (validateStep(currentStep)) {
+                    // Add success animation to the current step dot
+                    const currentDot = document.querySelector(`.step-dot[data-step="${currentStep}"]`);
+                    currentDot.style.animation = 'successPop 0.5s ease-out';
+                    
+                    // Proceed to next step
+                    showStep(currentStep + 1);
+                }
+            });
         });
 
-        return isValid;
+        prevButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                showStep(currentStep - 1);
+            });
+        });
+
+        // Initialize first step
+        showStep(1);
     }
 
-    // Next Step with Validation
-    nextButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            if (validateStep(currentStep)) {
-                // Add success animation to the current step dot
-                const currentDot = document.querySelector(`.step-dot[data-step="${currentStep}"]`);
-                currentDot.style.animation = 'successPop 0.5s ease-out';
-                
-                // Proceed to next step
-                showStep(currentStep + 1);
-            }
-        });
-    });
+    // Date Input Validation
+    const dateInput = document.getElementById('date');
+    if (dateInput) {
+        const today = new Date();
+        const tomorrow = new Date(today);
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        dateInput.setAttribute('min', tomorrow.toISOString().split('T')[0]);
+    }
 
-    // Previous Step
-    prevButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            showStep(currentStep - 1);
+    // Add shake animation
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+    `;
+    document.head.appendChild(style);
+
+    // Form Field Validation on Input
+    const formInputs = form.querySelectorAll('input, select, textarea');
+    formInputs.forEach(input => {
+        input.addEventListener('input', () => {
+            if (input.hasAttribute('required')) {
+                if (!input.value) {
+                    input.classList.add('is-invalid');
+                    input.classList.remove('is-valid');
+                } else {
+                    input.classList.remove('is-invalid');
+                    input.classList.add('is-valid');
+                }
+            }
         });
     });
 
@@ -141,45 +234,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 alert('Es ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.');
             });
         }
-    });
-
-    // Initialize first step
-    showStep(1);
-
-    // Date Input Validation
-    const dateInput = document.getElementById('date');
-    if (dateInput) {
-        const today = new Date();
-        const tomorrow = new Date(today);
-        tomorrow.setDate(tomorrow.getDate() + 1);
-        dateInput.setAttribute('min', tomorrow.toISOString().split('T')[0]);
-    }
-
-    // Add shake animation
-    const style = document.createElement('style');
-    style.textContent = `
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-10px); }
-            75% { transform: translateX(10px); }
-        }
-    `;
-    document.head.appendChild(style);
-
-    // Form Field Validation on Input
-    const formInputs = form.querySelectorAll('input, select, textarea');
-    formInputs.forEach(input => {
-        input.addEventListener('input', () => {
-            if (input.hasAttribute('required')) {
-                if (!input.value) {
-                    input.classList.add('is-invalid');
-                    input.classList.remove('is-valid');
-                } else {
-                    input.classList.remove('is-invalid');
-                    input.classList.add('is-valid');
-                }
-            }
-        });
     });
 
     // Smooth Scrolling for Navigation Links
@@ -260,53 +314,6 @@ document.addEventListener('DOMContentLoaded', function() {
             if (navbarCollapse.classList.contains('show')) {
                 const bsCollapse = new bootstrap.Collapse(navbarCollapse);
                 bsCollapse.hide();
-            }
-        }
-    });
-
-    // Logo Intro Animation
-    document.addEventListener('DOMContentLoaded', function() {
-        const logoIntro = document.querySelector('.logo-intro');
-        const pageContent = document.querySelector('.page-content');
-        const themeSwitch = document.querySelector('.theme-switch');
-        
-        // Show logo intro
-        setTimeout(() => {
-            logoIntro.classList.add('active');
-        }, 300);
-        
-        // Hide logo intro and show content
-        setTimeout(() => {
-            logoIntro.classList.add('fade-out');
-            pageContent.style.opacity = '1';
-            pageContent.style.transform = 'translateY(0)';
-            document.body.classList.add('page-loaded');
-        }, 2000);
-        
-        // Remove logo intro from DOM after animation
-        setTimeout(() => {
-            logoIntro.style.display = 'none';
-        }, 3000);
-
-        // Theme Switch
-        themeSwitch.addEventListener('click', () => {
-            const html = document.documentElement;
-            const currentTheme = html.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            
-            html.setAttribute('data-theme', newTheme);
-            themeSwitch.classList.toggle('light');
-            
-            // Save theme preference
-            localStorage.setItem('theme', newTheme);
-        });
-        
-        // Load saved theme
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme) {
-            document.documentElement.setAttribute('data-theme', savedTheme);
-            if (savedTheme === 'light') {
-                themeSwitch.classList.add('light');
             }
         }
     });
