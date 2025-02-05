@@ -1,19 +1,38 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Set default theme to light if no preference is saved
-    const savedTheme = localStorage.getItem('theme');
-    if (!savedTheme) {
-        document.documentElement.setAttribute('data-theme', 'light');
-        const themeSwitch = document.querySelector('.theme-switch');
-        if (themeSwitch) {
+    // Theme Switch
+    const themeSwitch = document.querySelector('.theme-switch');
+    const html = document.documentElement;
+    
+    // Set default theme to light
+    if (!localStorage.getItem('theme')) {
+        html.setAttribute('data-theme', 'light');
+        themeSwitch.classList.add('light');
+        localStorage.setItem('theme', 'light');
+    } else {
+        const savedTheme = localStorage.getItem('theme');
+        html.setAttribute('data-theme', savedTheme);
+        if (savedTheme === 'light') {
             themeSwitch.classList.add('light');
         }
-        localStorage.setItem('theme', 'light');
     }
+
+    themeSwitch.addEventListener('click', () => {
+        const currentTheme = html.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        
+        html.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        
+        if (newTheme === 'light') {
+            themeSwitch.classList.add('light');
+        } else {
+            themeSwitch.classList.remove('light');
+        }
+    });
 
     // Logo Intro Animation
     const logoIntro = document.querySelector('.logo-intro');
     const pageContent = document.querySelector('.page-content');
-    const themeSwitch = document.querySelector('.theme-switch');
     
     if (logoIntro && pageContent) {
         const hasSeenIntro = sessionStorage.getItem('hasSeenIntro');
@@ -50,30 +69,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Theme Switch
-    if (themeSwitch) {
-        themeSwitch.addEventListener('click', () => {
-            const html = document.documentElement;
-            const currentTheme = html.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            
-            html.setAttribute('data-theme', newTheme);
-            themeSwitch.classList.toggle('light');
-            
-            // Save theme preference
-            localStorage.setItem('theme', newTheme);
-        });
-        
-        // Load saved theme
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme) {
-            document.documentElement.setAttribute('data-theme', savedTheme);
-            if (savedTheme === 'light') {
-                themeSwitch.classList.add('light');
-            }
-        }
-    }
-
     // Form Steps
     const form = document.getElementById('appointmentForm');
     if (form) {
@@ -83,6 +78,33 @@ document.addEventListener('DOMContentLoaded', function() {
         const nextButtons = document.querySelectorAll('.next-step');
         const prevButtons = document.querySelectorAll('.prev-step');
         let currentStep = 1;
+
+        // Form Submit Handler
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(form);
+            const submitButton = form.querySelector('button[type="submit"]');
+            submitButton.disabled = true;
+            submitButton.innerHTML = 'Wird gesendet...';
+
+            fetch(form.action, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (response.ok) {
+                    window.location.href = 'danke.html';
+                } else {
+                    throw new Error('Fehler beim Senden');
+                }
+            })
+            .catch(error => {
+                submitButton.disabled = false;
+                submitButton.innerHTML = 'Anfrage absenden';
+                alert('Es gab einen Fehler beim Senden. Bitte versuchen Sie es später erneut.');
+            });
+        });
 
         // Update Progress Bar and Step Dots
         function updateProgress() {
@@ -195,44 +217,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
         });
-    });
-
-    // Form Submission
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        if (validateStep(currentStep)) {
-            // Show loading state
-            const submitButton = form.querySelector('button[type="submit"]');
-            const originalText = submitButton.innerHTML;
-            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Wird gesendet...';
-            submitButton.disabled = true;
-
-            // Submit form
-            const formData = new FormData(form);
-            fetch(form.action, {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => {
-                if (response.ok) {
-                    // Success animation before redirect
-                    submitButton.innerHTML = '<i class="fas fa-check"></i> Erfolgreich gesendet!';
-                    submitButton.classList.remove('btn-primary');
-                    submitButton.classList.add('btn-success');
-                    
-                    setTimeout(() => {
-                        window.location.href = 'danke.html';
-                    }, 1000);
-                } else {
-                    throw new Error('Fehler beim Senden');
-                }
-            })
-            .catch(error => {
-                submitButton.innerHTML = originalText;
-                submitButton.disabled = false;
-                alert('Es ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.');
-            });
-        }
     });
 
     // Smooth Scrolling for Navigation Links
