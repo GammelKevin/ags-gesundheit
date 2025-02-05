@@ -221,26 +221,31 @@
                     <form id="appointmentForm" action="https://formsubmit.co/abendsonne635@gmail.com" method="POST" class="appointment-form">
                         <!-- FormSubmit Konfiguration -->
                         <input type="hidden" name="_captcha" value="false">
-                        <input type="hidden" name="_subject" value="Neue Terminanfrage AGS Gesundheit">
+                        <input type="hidden" name="_template" value="table">
+                        <input type="hidden" name="_subject" value="🏥 Neue Terminanfrage - AGS Gesundheit">
+                        <input type="hidden" name="_autoresponse" value="Vielen Dank für Ihre Anfrage bei AGS Gesundheitszentrum! Wir melden uns schnellstmöglich bei Ihnen.">
                         
+                        <!-- Bessere Namen für die E-Mail -->
+                        <input type="hidden" name="_title" value="Neue Terminanfrage">
+                        <input type="hidden" name="Formular" value="Terminanfrage">
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="name" class="form-label">Name *</label>
-                                <input type="text" class="form-control" id="name" name="name" required>
+                                <input type="text" class="form-control" id="name" name="👤 Name" required>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="email" class="form-label">E-Mail *</label>
-                                <input type="email" class="form-control" id="email" name="email" required>
+                                <input type="email" class="form-control" id="email" name="📧 E-Mail" required>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="phone" class="form-label">Telefon *</label>
-                                <input type="tel" class="form-control" id="phone" name="phone" required>
+                                <input type="tel" class="form-control" id="phone" name="📱 Telefon" required>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="service" class="form-label">Gewünschte Behandlung *</label>
-                                <select class="form-select" id="service" name="service" required>
+                                <select class="form-select" id="service" name="🏥 Behandlung" required>
                                     <option value="">Bitte wählen...</option>
                                     <option value="Physiotherapie">Physiotherapie</option>
                                     <option value="Massage">Massage</option>
@@ -254,11 +259,11 @@
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="date" class="form-label">Wunschtermin *</label>
-                                <input type="date" class="form-control" id="date" name="date" required>
+                                <input type="date" class="form-control" id="date" name="📅 Datum" required>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="time" class="form-label">Wunschuhrzeit *</label>
-                                <select class="form-select" id="time" name="time" required>
+                                <select class="form-select" id="time" name="⏰ Uhrzeit" required>
                                     <option value="">Bitte wählen...</option>
                                     <option value="08:00">08:00 Uhr</option>
                                     <option value="09:00">09:00 Uhr</option>
@@ -277,37 +282,37 @@
                         <!-- Alternative Termine -->
                         <div class="mb-3">
                             <label for="altDates" class="form-label">Alternative Termine (optional)</label>
-                            <textarea class="form-control" id="altDates" name="altDates" rows="2" placeholder="Falls der Wunschtermin nicht möglich ist, welche anderen Termine passen für Sie?"></textarea>
+                            <textarea class="form-control" id="altDates" name="📅 Alternative Termine" rows="2" placeholder="Falls der Wunschtermin nicht möglich ist, welche anderen Termine passen für Sie?"></textarea>
                         </div>
 
                         <!-- Beschwerden/Symptome -->
                         <div class="mb-3">
                             <label for="symptoms" class="form-label">Beschwerden/Symptome *</label>
-                            <textarea class="form-control" id="symptoms" name="symptoms" rows="3" required placeholder="Bitte beschreiben Sie kurz Ihre Beschwerden oder den Grund Ihres Besuchs"></textarea>
+                            <textarea class="form-control" id="symptoms" name="🤒 Beschwerden" rows="3" required placeholder="Bitte beschreiben Sie kurz Ihre Beschwerden oder den Grund Ihres Besuchs"></textarea>
                         </div>
 
                         <!-- Krankenkasse -->
                         <div class="mb-3">
                             <label for="insurance" class="form-label">Krankenkasse *</label>
-                            <input type="text" class="form-control" id="insurance" name="insurance" required>
+                            <input type="text" class="form-control" id="insurance" name="💊 Krankenkasse" required>
                         </div>
 
                         <!-- Überweisungsschein -->
                         <div class="mb-3">
                             <label class="form-label d-block">Überweisungsschein vorhanden? *</label>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="referral" id="referralYes" value="Ja" required>
+                                <input class="form-check-input" type="radio" name="📋 Überweisungsschein" id="referralYes" value="Ja" required>
                                 <label class="form-check-label" for="referralYes">Ja</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="referral" id="referralNo" value="Nein" required>
+                                <input class="form-check-input" type="radio" name="📋 Überweisungsschein" id="referralNo" value="Nein" required>
                                 <label class="form-check-label" for="referralNo">Nein</label>
                             </div>
                         </div>
 
                         <div class="mb-3">
                             <label for="message" class="form-label">Weitere Anmerkungen</label>
-                            <textarea class="form-control" id="message" name="message" rows="3" placeholder="Haben Sie noch weitere Fragen oder Anmerkungen?"></textarea>
+                            <textarea class="form-control" id="message" name="💬 Anmerkungen" rows="3" placeholder="Haben Sie noch weitere Fragen oder Anmerkungen?"></textarea>
                         </div>
 
                         <div class="mb-3 form-check">
