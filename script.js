@@ -56,8 +56,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const appointmentForm = document.getElementById('appointmentForm');
     if (appointmentForm) {
         appointmentForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
             // Validate form
             let isValid = true;
             const formInputs = this.querySelectorAll('input, select, textarea');
@@ -71,28 +69,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
 
-            if (isValid) {
-                // Create success alert
-                const successAlert = document.createElement('div');
-                successAlert.className = 'alert alert-success mt-4';
-                successAlert.innerHTML = `
-                    <h4 class="alert-heading">Vielen Dank für Ihre Anfrage! 🎉</h4>
-                    <p class="mb-0">Wir haben Ihre Terminanfrage erhalten und werden uns schnellstmöglich bei Ihnen melden.</p>
-                `;
-
-                // Smooth fade out of form
-                appointmentForm.style.transition = 'opacity 0.5s ease';
-                appointmentForm.style.opacity = '0';
-
-                // After fade out, show success message
-                setTimeout(() => {
-                    appointmentForm.innerHTML = '';
-                    appointmentForm.appendChild(successAlert);
-                    appointmentForm.style.opacity = '1';
-                }, 500);
-
-                // Reset form (in background)
-                this.reset();
+            if (!isValid) {
+                e.preventDefault();
+            } else {
+                // Show loading state
+                const submitButton = this.querySelector('button[type="submit"]');
+                submitButton.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Wird gesendet...';
+                submitButton.disabled = true;
             }
         });
 
