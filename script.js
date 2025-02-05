@@ -3,25 +3,16 @@ document.addEventListener('DOMContentLoaded', function() {
     const themeSwitch = document.querySelector('.theme-switch');
     const html = document.documentElement;
     
-    // Set default theme to light
-    if (!localStorage.getItem('theme')) {
-        html.setAttribute('data-theme', 'light');
-        themeSwitch.classList.add('light');
-        localStorage.setItem('theme', 'light');
-    } else {
-        const savedTheme = localStorage.getItem('theme');
-        html.setAttribute('data-theme', savedTheme);
-        if (savedTheme === 'light') {
-            themeSwitch.classList.add('light');
-        }
-    }
+    // Always start with light theme
+    html.setAttribute('data-theme', 'light');
+    themeSwitch.classList.add('light');
 
+    // Theme Switch Click Handler
     themeSwitch.addEventListener('click', () => {
         const currentTheme = html.getAttribute('data-theme');
         const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
         
         html.setAttribute('data-theme', newTheme);
-        localStorage.setItem('theme', newTheme);
         
         if (newTheme === 'light') {
             themeSwitch.classList.add('light');
@@ -88,22 +79,8 @@ document.addEventListener('DOMContentLoaded', function() {
             submitButton.disabled = true;
             submitButton.innerHTML = 'Wird gesendet...';
 
-            fetch(form.action, {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => {
-                if (response.ok) {
-                    window.location.href = 'danke.html';
-                } else {
-                    throw new Error('Fehler beim Senden');
-                }
-            })
-            .catch(error => {
-                submitButton.disabled = false;
-                submitButton.innerHTML = 'Anfrage absenden';
-                alert('Es gab einen Fehler beim Senden. Bitte versuchen Sie es später erneut.');
-            });
+            // Direkt zur Danke-Seite weiterleiten
+            window.location.href = 'danke.html';
         });
 
         // Update Progress Bar and Step Dots
