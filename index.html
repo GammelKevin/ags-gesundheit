@@ -218,16 +218,12 @@
             <h2 class="text-center mb-5">Terminanfrage</h2>
             <div class="row justify-content-center">
                 <div class="col-md-8">
-                    <form id="appointmentForm" action="https://formsubmit.co/abendsonne635@gmail.com" method="POST" class="appointment-form">
-                        <!-- FormSubmit Konfiguration -->
-                        <input type="hidden" name="_captcha" value="false">
-                        <input type="hidden" name="_template" value="table">
-                        <input type="hidden" name="_subject" value="🏥 Neue Terminanfrage - AGS Gesundheit">
-                        <input type="hidden" name="_autoresponse" value="Vielen Dank für Ihre Anfrage bei AGS Gesundheitszentrum! Wir melden uns schnellstmöglich bei Ihnen.">
-                        
-                        <!-- Bessere Namen für die E-Mail -->
-                        <input type="hidden" name="_title" value="Neue Terminanfrage">
-                        <input type="hidden" name="Formular" value="Terminanfrage">
+                    <form id="appointmentForm" action="https://api.web3forms.com/submit" method="POST" class="appointment-form">
+                        <!-- Web3Forms Konfiguration -->
+                        <input type="hidden" name="access_key" value="d3086d53-cbd7-4307-a3b7-79f87e8528e6">
+                        <input type="hidden" name="subject" value="🏥 Neue Terminanfrage - AGS Gesundheit">
+                        <input type="hidden" name="from_name" value="AGS Gesundheit Website">
+                        <input type="hidden" name="redirect" value="https://ags-gesundheit.netlify.app/danke.html">
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="name" class="form-label">Name *</label>
