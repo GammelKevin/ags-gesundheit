@@ -305,6 +305,116 @@ section::before {
     }
 }
 
+/* Mobile Optimierungen */
+@media (max-width: 768px) {
+    /* Header & Navigation */
+    .navbar-brand {
+        font-size: 1.2rem;
+    }
+
+    .hero {
+        min-height: 60vh;
+        padding: 2rem 0;
+    }
+
+    .hero h1 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
+
+    .hero .lead {
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    /* Services */
+    .service-card {
+        margin-bottom: 1.5rem;
+        padding: 1.5rem;
+    }
+
+    .service-image {
+        height: 200px;
+        object-fit: cover;
+    }
+
+    /* Kontakt */
+    .contact-card {
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .contact-icon {
+        font-size: 1.2rem;
+        width: 35px;
+        height: 35px;
+    }
+
+    /* Öffnungszeiten */
+    .opening-hours {
+        font-size: 0.9rem;
+    }
+
+    .opening-hours .day,
+    .opening-hours .time {
+        display: block;
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+
+    /* Map */
+    .map-container iframe {
+        height: 300px;
+    }
+
+    /* Formular */
+    .appointment-form {
+        padding: 1.5rem;
+    }
+
+    /* Footer */
+    footer {
+        text-align: center;
+        padding: 2rem 0;
+    }
+
+    footer h4 {
+        margin-top: 1.5rem;
+    }
+}
+
+/* Kleine Handys */
+@media (max-width: 576px) {
+    .container {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .hero h1 {
+        font-size: 1.8rem;
+    }
+
+    .section-title {
+        font-size: 1.5rem;
+    }
+
+    .btn {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+
+    .contact-card {
+        margin-bottom: 1rem;
+    }
+}
+
+/* Landscape Mode */
+@media (max-height: 500px) and (orientation: landscape) {
+    .hero {
+        min-height: 100vh;
+    }
+}
+
 /* Appointment Form */
 .appointment-form {
     background: white;
