@@ -1,12 +1,14 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Form Steps
-    const form = document.getElementById('appointmentForm');
-    const steps = document.querySelectorAll('.form-step');
-    const progressBar = document.querySelector('.progress-bar');
-    const stepDots = document.querySelectorAll('.step-dot');
-    const nextButtons = document.querySelectorAll('.next-step');
-    const prevButtons = document.querySelectorAll('.prev-step');
-    let currentStep = 1;
+    // Set default theme to light if no preference is saved
+    const savedTheme = localStorage.getItem('theme');
+    if (!savedTheme) {
+        document.documentElement.setAttribute('data-theme', 'light');
+        const themeSwitch = document.querySelector('.theme-switch');
+        if (themeSwitch) {
+            themeSwitch.classList.add('light');
+        }
+        localStorage.setItem('theme', 'light');
+    }
 
     // Logo Intro Animation
     const logoIntro = document.querySelector('.logo-intro');
@@ -72,8 +74,16 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Form functionality
+    // Form Steps
+    const form = document.getElementById('appointmentForm');
     if (form) {
+        const steps = document.querySelectorAll('.form-step');
+        const progressBar = document.querySelector('.progress-bar');
+        const stepDots = document.querySelectorAll('.step-dot');
+        const nextButtons = document.querySelectorAll('.next-step');
+        const prevButtons = document.querySelectorAll('.prev-step');
+        let currentStep = 1;
+
         // Update Progress Bar and Step Dots
         function updateProgress() {
             const progress = ((currentStep - 1) / (steps.length - 1)) * 100;
@@ -100,7 +110,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 step.classList.remove('active');
             });
 
-            const targetStep = document.querySelector(`[data-step="${stepNumber}"]`);
+            const targetStep = document.querySelector(`.form-step[data-step="${stepNumber}"]`);
             if (targetStep) {
                 targetStep.style.display = 'block';
                 setTimeout(() => {
@@ -115,7 +125,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Next/Previous buttons
         nextButtons.forEach(button => {
             button.addEventListener('click', () => {
-                const currentStepElement = document.querySelector(`[data-step="${currentStep}"]`);
+                const currentStepElement = document.querySelector(`.form-step[data-step="${currentStep}"]`);
                 const inputs = currentStepElement.querySelectorAll('input[required], select[required], textarea[required]');
                 let isValid = true;
 
@@ -133,7 +143,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 });
 
-                if (isValid) {
+                if (isValid && currentStep < steps.length) {
                     showStep(currentStep + 1);
                 }
             });
@@ -141,7 +151,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
         prevButtons.forEach(button => {
             button.addEventListener('click', () => {
-                showStep(currentStep - 1);
+                if (currentStep > 1) {
+                    showStep(currentStep - 1);
+                }
             });
         });
 
