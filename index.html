@@ -14,21 +14,37 @@
 </head>
 <body>
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
             <a class="navbar-brand" href="#">
-                <i class="fas fa-heartbeat me-2"></i>AGS Gesundheitszentrum
+                <!-- Logo SVG -->
+                <svg class="logo-nav" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                    <path class="line" d="M40,60 L40,140 Q40,160 60,160 L140,160 Q160,160 160,140 L160,60 Q160,40 140,40 L60,40 Q40,40 40,60 Z"/>
+                    <text class="text" x="100" y="110" text-anchor="middle" font-size="48">AGS</text>
+                    <path class="line accent" d="M60,130 L80,130 L90,120 L110,140 L120,130 L140,130"/>
+                </svg>
+                AGS Gesundheit
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#services">Leistungen</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#about">Über uns</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#contact">Kontakt</a></li>
-                    <li class="nav-item"><a class="nav-link btn btn-primary text-white px-4" href="#termin">Termin vereinbaren</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#services">Leistungen</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">Über uns</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Kontakt</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="termin.html">Termin vereinbaren</a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -41,7 +57,7 @@
                 <div class="col-lg-8 mx-auto text-center">
                     <h1 class="mb-4">Willkommen im AGS Gesundheitszentrum</h1>
                     <p class="lead mb-5">Ihr Partner für Gesundheit und Wohlbefinden in Aholming</p>
-                    <a href="#termin" class="btn btn-primary btn-lg px-5 py-3">Jetzt Termin vereinbaren</a>
+                    <a href="termin.html" class="btn btn-primary btn-lg px-5 py-3">Jetzt Termin vereinbaren</a>
                 </div>
             </div>
         </div>
@@ -207,119 +223,6 @@
                             loading="lazy">
                         </iframe>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Appointment Section -->
-    <section id="termin" class="py-5 bg-light">
-        <div class="container">
-            <h2 class="text-center mb-5">Terminanfrage</h2>
-            <div class="row justify-content-center">
-                <div class="col-md-8">
-                    <form id="appointmentForm" action="https://api.web3forms.com/submit" method="POST" class="appointment-form">
-                        <!-- Web3Forms Konfiguration -->
-                        <input type="hidden" name="access_key" value="d3086d53-cbd7-4307-a3b7-79f87e8528e6">
-                        <input type="hidden" name="subject" value="🏥 Neue Terminanfrage - AGS Gesundheit">
-                        <input type="hidden" name="from_name" value="AGS Gesundheit Website">
-                        <input type="hidden" name="redirect" value="https://ags-gesundheit.netlify.app/danke.html">
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="name" class="form-label">Name *</label>
-                                <input type="text" class="form-control" id="name" name="👤 Name" required>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="email" class="form-label">E-Mail *</label>
-                                <input type="email" class="form-control" id="email" name="📧 E-Mail" required>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="phone" class="form-label">Telefon *</label>
-                                <input type="tel" class="form-control" id="phone" name="📱 Telefon" required>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="service" class="form-label">Gewünschte Behandlung *</label>
-                                <select class="form-select" id="service" name="🏥 Behandlung" required>
-                                    <option value="">Bitte wählen...</option>
-                                    <option value="Physiotherapie">Physiotherapie</option>
-                                    <option value="Massage">Massage</option>
-                                    <option value="Fitness">Fitness</option>
-                                    <option value="Sonstiges">Sonstiges</option>
-                                </select>
-                            </div>
-                        </div>
-                        
-                        <!-- Neue Felder für Terminwunsch -->
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="date" class="form-label">Wunschtermin *</label>
-                                <input type="date" class="form-control" id="date" name="📅 Datum" required>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="time" class="form-label">Wunschuhrzeit *</label>
-                                <select class="form-select" id="time" name="⏰ Uhrzeit" required>
-                                    <option value="">Bitte wählen...</option>
-                                    <option value="08:00">08:00 Uhr</option>
-                                    <option value="09:00">09:00 Uhr</option>
-                                    <option value="10:00">10:00 Uhr</option>
-                                    <option value="11:00">11:00 Uhr</option>
-                                    <option value="12:00">12:00 Uhr</option>
-                                    <option value="13:00">13:00 Uhr</option>
-                                    <option value="14:00">14:00 Uhr</option>
-                                    <option value="15:00">15:00 Uhr</option>
-                                    <option value="16:00">16:00 Uhr</option>
-                                    <option value="17:00">17:00 Uhr</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <!-- Alternative Termine -->
-                        <div class="mb-3">
-                            <label for="altDates" class="form-label">Alternative Termine (optional)</label>
-                            <textarea class="form-control" id="altDates" name="📅 Alternative Termine" rows="2" placeholder="Falls der Wunschtermin nicht möglich ist, welche anderen Termine passen für Sie?"></textarea>
-                        </div>
-
-                        <!-- Beschwerden/Symptome -->
-                        <div class="mb-3">
-                            <label for="symptoms" class="form-label">Beschwerden/Symptome *</label>
-                            <textarea class="form-control" id="symptoms" name="🤒 Beschwerden" rows="3" required placeholder="Bitte beschreiben Sie kurz Ihre Beschwerden oder den Grund Ihres Besuchs"></textarea>
-                        </div>
-
-                        <!-- Krankenkasse -->
-                        <div class="mb-3">
-                            <label for="insurance" class="form-label">Krankenkasse *</label>
-                            <input type="text" class="form-control" id="insurance" name="💊 Krankenkasse" required>
-                        </div>
-
-                        <!-- Überweisungsschein -->
-                        <div class="mb-3">
-                            <label class="form-label d-block">Überweisungsschein vorhanden? *</label>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="📋 Überweisungsschein" id="referralYes" value="Ja" required>
-                                <label class="form-check-label" for="referralYes">Ja</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="📋 Überweisungsschein" id="referralNo" value="Nein" required>
-                                <label class="form-check-label" for="referralNo">Nein</label>
-                            </div>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="message" class="form-label">Weitere Anmerkungen</label>
-                            <textarea class="form-control" id="message" name="💬 Anmerkungen" rows="3" placeholder="Haben Sie noch weitere Fragen oder Anmerkungen?"></textarea>
-                        </div>
-
-                        <div class="mb-3 form-check">
-                            <input type="checkbox" class="form-check-input" id="privacy" name="privacy" required>
-                            <label class="form-check-label" for="privacy">
-                                Ich stimme der Verarbeitung meiner Daten gemäß der Datenschutzerklärung zu *
-                            </label>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary">Anfrage absenden</button>
-                    </form>
                 </div>
             </div>
         </div>

@@ -12,7 +12,7 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background: #f8f9fa;
+            background: #1a1a1a;
             font-family: 'Arial', sans-serif;
         }
 
@@ -25,13 +25,14 @@
         .logo {
             width: 100%;
             height: 100%;
-            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
+            filter: drop-shadow(0 0 10px rgba(52, 152, 219, 0.3));
         }
 
         .text {
             font-family: 'Arial', sans-serif;
             font-weight: bold;
-            fill: #2c3e50;
+            fill: #fff;
+            filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5));
         }
 
         .line {
@@ -40,11 +41,38 @@
             stroke-linecap: round;
             stroke-linejoin: round;
             fill: none;
-            transition: all 0.3s ease;
+            filter: drop-shadow(0 0 5px rgba(52, 152, 219, 0.5));
+            animation: glow 2s ease-in-out infinite;
         }
 
         .accent {
             stroke: #e74c3c;
+            filter: drop-shadow(0 0 5px rgba(231, 76, 60, 0.5));
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            0% {
+                filter: drop-shadow(0 0 5px rgba(52, 152, 219, 0.5));
+            }
+            100% {
+                filter: drop-shadow(0 0 15px rgba(52, 152, 219, 0.8));
+            }
+        }
+
+        /* Für die Website-Integration */
+        .logo-nav {
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+        }
+
+        .logo-nav .line {
+            stroke-width: 4;
+        }
+
+        .logo-nav .text {
+            font-size: 24px;
         }
     </style>
 </head>

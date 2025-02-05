@@ -1,30 +1,149 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Navbar Scroll Effect
+    // Form Steps
+    const form = document.getElementById('appointmentForm');
+    const steps = document.querySelectorAll('.form-step');
+    const progressBar = document.querySelector('.progress-bar');
+    const nextButtons = document.querySelectorAll('.next-step');
+    const prevButtons = document.querySelectorAll('.prev-step');
+    let currentStep = 1;
+
+    // Update Progress Bar
+    function updateProgress() {
+        const progress = ((currentStep - 1) / (steps.length - 1)) * 100;
+        progressBar.style.width = `${progress}%`;
+    }
+
+    // Show Step
+    function showStep(stepNumber) {
+        steps.forEach(step => {
+            step.classList.remove('active');
+        });
+        document.querySelector(`[data-step="${stepNumber}"]`).classList.add('active');
+        updateProgress();
+    }
+
+    // Validate Current Step
+    function validateStep(stepNumber) {
+        const currentStepElement = document.querySelector(`[data-step="${stepNumber}"]`);
+        const requiredFields = currentStepElement.querySelectorAll('[required]');
+        let isValid = true;
+
+        requiredFields.forEach(field => {
+            if (!field.value) {
+                isValid = false;
+                field.classList.add('is-invalid');
+            } else {
+                field.classList.remove('is-invalid');
+            }
+        });
+
+        return isValid;
+    }
+
+    // Next Step
+    nextButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            if (validateStep(currentStep)) {
+                currentStep++;
+                showStep(currentStep);
+            }
+        });
+    });
+
+    // Previous Step
+    prevButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            currentStep--;
+            showStep(currentStep);
+        });
+    });
+
+    // Form Submission
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        if (validateStep(currentStep)) {
+            // Show loading state
+            const submitButton = form.querySelector('button[type="submit"]');
+            const originalText = submitButton.innerHTML;
+            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Wird gesendet...';
+            submitButton.disabled = true;
+
+            // Submit form
+            const formData = new FormData(form);
+            fetch(form.action, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (response.ok) {
+                    window.location.href = 'danke.html';
+                } else {
+                    throw new Error('Fehler beim Senden');
+                }
+            })
+            .catch(error => {
+                submitButton.innerHTML = originalText;
+                submitButton.disabled = false;
+                alert('Es ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.');
+            });
+        }
+    });
+
+    // Initialize first step
+    showStep(1);
+
+    // Date Input Validation
+    const dateInput = document.getElementById('date');
+    if (dateInput) {
+        const today = new Date().toISOString().split('T')[0];
+        dateInput.setAttribute('min', today);
+    }
+
+    // Smooth Scrolling for Navigation Links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+
+    // Navbar Background Change on Scroll
     const navbar = document.querySelector('.navbar');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            navbar.style.padding = '0.5rem 0';
+        } else {
+            navbar.style.padding = '1rem 0';
+        }
+    });
+
+    // Form Field Validation on Input
+    const formInputs = form.querySelectorAll('input, select, textarea');
+    formInputs.forEach(input => {
+        input.addEventListener('input', () => {
+            if (input.hasAttribute('required')) {
+                if (!input.value) {
+                    input.classList.add('is-invalid');
+                } else {
+                    input.classList.remove('is-invalid');
+                }
+            }
+        });
+    });
+
+    // Navbar Scroll Effect
     window.addEventListener('scroll', function() {
         if (window.scrollY > 100) {
             navbar.classList.add('scrolled');
         } else {
             navbar.classList.remove('scrolled');
         }
-    });
-
-    // Smooth scrolling for navigation links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                const headerOffset = 80;
-                const elementPosition = target.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-                window.scrollTo({
-                    top: offsetPosition,
-                    behavior: 'smooth'
-                });
-            }
-        });
     });
 
     // Scroll Reveal Animation
@@ -51,129 +170,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Call scrollReveal on load and scroll
     scrollReveal();
     window.addEventListener('scroll', scrollReveal);
-
-    // Form validation and submission
-    const appointmentForm = document.getElementById('appointmentForm');
-    if (appointmentForm) {
-        appointmentForm.addEventListener('submit', function(e) {
-            // Validate form
-            let isValid = true;
-            const formInputs = this.querySelectorAll('input, select, textarea');
-            
-            formInputs.forEach(input => {
-                if (input.hasAttribute('required') && !input.value) {
-                    isValid = false;
-                    input.classList.add('is-invalid');
-                } else {
-                    input.classList.remove('is-invalid');
-                }
-            });
-
-            if (!isValid) {
-                e.preventDefault();
-            } else {
-                // Show loading state
-                const submitButton = this.querySelector('button[type="submit"]');
-                submitButton.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Wird gesendet...';
-                submitButton.disabled = true;
-            }
-        });
-
-        // Real-time validation
-        appointmentForm.querySelectorAll('input, select, textarea').forEach(input => {
-            input.addEventListener('blur', function() {
-                if (this.hasAttribute('required') && !this.value) {
-                    this.classList.add('is-invalid');
-                } else {
-                    this.classList.remove('is-invalid');
-                }
-            });
-        });
-    }
-
-    // Multi-Step Form Handling
-    const form = document.getElementById('appointmentForm');
-    const steps = form.querySelectorAll('.form-step');
-    const progressBar = document.querySelector('.progress-bar');
-    const totalSteps = steps.length;
-
-    // Next Step Buttons
-    form.querySelectorAll('.next-step').forEach(button => {
-        button.addEventListener('click', function() {
-            const currentStep = this.closest('.form-step');
-            const currentStepNum = parseInt(currentStep.dataset.step);
-            
-            // Validate current step
-            const inputs = currentStep.querySelectorAll('input[required], select[required], textarea[required]');
-            let isValid = true;
-            
-            inputs.forEach(input => {
-                if (!input.value) {
-                    isValid = false;
-                    input.classList.add('is-invalid');
-                } else {
-                    input.classList.remove('is-invalid');
-                    input.classList.add('is-valid');
-                }
-            });
-
-            if (isValid) {
-                // Update progress bar
-                const progress = (currentStepNum / totalSteps) * 100;
-                progressBar.style.width = `${progress}%`;
-
-                // Hide current step with animation
-                currentStep.style.opacity = '0';
-                currentStep.style.transform = 'translateX(-100px)';
-                
-                setTimeout(() => {
-                    currentStep.classList.remove('active');
-                    // Show next step with animation
-                    const nextStep = form.querySelector(`[data-step="${currentStepNum + 1}"]`);
-                    nextStep.classList.add('active');
-                    setTimeout(() => {
-                        nextStep.style.opacity = '1';
-                        nextStep.style.transform = 'translateX(0)';
-                    }, 50);
-                }, 300);
-            }
-        });
-    });
-
-    // Previous Step Buttons
-    form.querySelectorAll('.prev-step').forEach(button => {
-        button.addEventListener('click', function() {
-            const currentStep = this.closest('.form-step');
-            const currentStepNum = parseInt(currentStep.dataset.step);
-            
-            // Update progress bar
-            const progress = ((currentStepNum - 2) / totalSteps) * 100;
-            progressBar.style.width = `${progress}%`;
-
-            // Hide current step with animation
-            currentStep.style.opacity = '0';
-            currentStep.style.transform = 'translateX(100px)';
-            
-            setTimeout(() => {
-                currentStep.classList.remove('active');
-                // Show previous step with animation
-                const prevStep = form.querySelector(`[data-step="${currentStepNum - 1}"]`);
-                prevStep.classList.add('active');
-                setTimeout(() => {
-                    prevStep.style.opacity = '1';
-                    prevStep.style.transform = 'translateX(0)';
-                }, 50);
-            }, 300);
-        });
-    });
-
-    // Form Submit
-    form.addEventListener('submit', function(e) {
-        const submitButton = form.querySelector('button[type="submit"]');
-        submitButton.classList.add('loading');
-        submitButton.innerHTML = 'Wird gesendet...';
-        submitButton.disabled = true;
-    });
 
     // Service card hover effect
     document.querySelectorAll('.service-card').forEach(card => {
