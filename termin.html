@@ -36,7 +36,7 @@
                         <a class="nav-link" href="index.html#contact">Kontakt</a>
                     </li>
                 </ul>
-                <button class="theme-switch ms-3">
+                <button class="theme-switch" aria-label="Theme Switch">
                     <i class="fas fa-sun"></i>
                     <i class="fas fa-moon"></i>
                 </button>
@@ -50,11 +50,30 @@
             <div class="row justify-content-center">
                 <div class="col-lg-8">
                     <div class="appointment-form">
-                        <div class="progress-bar">
-                            <div class="progress" id="progress"></div>
-                            <div class="progress-step" data-step="1">1</div>
-                            <div class="progress-step" data-step="2">2</div>
-                            <div class="progress-step" data-step="3">3</div>
+                        <div class="progress-container">
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" style="width: 0%"></div>
+                            </div>
+                            <div class="step-dots">
+                                <span class="step-dot active" data-step="1">
+                                    <i class="fas fa-user"></i>
+                                </span>
+                                <span class="step-dot" data-step="2">
+                                    <i class="fas fa-clipboard-list"></i>
+                                </span>
+                                <span class="step-dot" data-step="3">
+                                    <i class="fas fa-calendar-alt"></i>
+                                </span>
+                                <span class="step-dot" data-step="4">
+                                    <i class="fas fa-info-circle"></i>
+                                </span>
+                            </div>
+                            <div class="step-labels">
+                                <span class="step-label active">Persönliche Daten</span>
+                                <span class="step-label">Behandlung</span>
+                                <span class="step-label">Termin</span>
+                                <span class="step-label">Zusatzinfos</span>
+                            </div>
                         </div>
 
                         <form id="appointmentForm" action="https://formspree.io/f/xbjvyknw" method="POST">
