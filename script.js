@@ -263,4 +263,42 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     });
+
+    // Logo Intro Animation
+    const logoIntro = document.querySelector('.logo-intro');
+    const pageContent = document.querySelector('.page-content');
+    const themeSwitch = document.querySelector('.theme-switch');
+    
+    // Show logo intro
+    setTimeout(() => {
+        logoIntro.classList.add('active');
+    }, 300);
+    
+    // Hide logo intro and show content
+    setTimeout(() => {
+        logoIntro.classList.add('fade-out');
+        document.body.classList.add('page-loaded');
+    }, 2000);
+    
+    // Theme Switch
+    themeSwitch.addEventListener('click', () => {
+        const html = document.documentElement;
+        const currentTheme = html.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        
+        html.setAttribute('data-theme', newTheme);
+        themeSwitch.classList.toggle('light');
+        
+        // Save theme preference
+        localStorage.setItem('theme', newTheme);
+    });
+    
+    // Load saved theme
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        if (savedTheme === 'light') {
+            themeSwitch.classList.add('light');
+        }
+    }
 });
