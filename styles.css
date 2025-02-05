@@ -12,16 +12,19 @@
     --bg-dark-lighter: #2A2A2A;
     --success-color: #4CAF50;
     --error-color: #f44336;
-    --bg-light: #f5f5f5;
-    --text-color: #666666;
+    --bg-light: #1A1A1A;
+    --text-color: #FFFFFF;
     --card-bg: #1E1E1E;
+    --primary: #4CAF50;
+    --primary-light: #8BC34A;
+    --progress-height: 8px;
 }
 
 /* General Styles */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
-    color: var(--text-light);
+    color: var(--text-color);
     background-color: var(--bg-dark);
 }
 
@@ -271,108 +274,62 @@ p, li {
 
 /* Progress Bar */
 .progress-container {
-    margin: 2rem 0;
+    margin: 2rem auto;
+    max-width: 600px;
     position: relative;
-    padding: 0 1rem;
 }
 
 .progress {
-    height: 4px;
-    background: var(--bg-dark-light);
-    border-radius: 2px;
-    overflow: visible;
-    margin-bottom: 3.5rem;
+    height: var(--progress-height);
+    background: rgba(255,255,255,0.1);
+    border-radius: var(--progress-height);
+    overflow: hidden;
     position: relative;
 }
 
-.progress-bar {
-    background: linear-gradient(90deg, #4CAF50, #8BC34A);
-    height: 100%;
-    border-radius: 2px;
-    position: relative;
-    transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
-}
-
-.step-dots {
+.progress::after {
+    content: '';
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
-    display: flex;
-    justify-content: space-between;
-    padding: 0 1rem;
-    margin-top: -8px;
+    bottom: 0;
+    background: linear-gradient(90deg, 
+        rgba(255,255,255,0.1) 0%,
+        rgba(255,255,255,0.2) 50%,
+        rgba(255,255,255,0.1) 100%);
+    animation: shine 2s linear infinite;
 }
 
-.step-dot {
-    width: 20px;
-    height: 20px;
-    background: var(--bg-dark);
-    border: 3px solid var(--bg-dark-light);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary), var(--primary-light));
+    border-radius: var(--progress-height);
     position: relative;
-    z-index: 2;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 0 20px rgba(76, 175, 80, 0.4);
 }
 
-.step-dot i {
-    font-size: 0.8rem;
-    color: var(--text-color);
-    opacity: 0.5;
-    transform: scale(0.8);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.step-dot.active {
-    border-color: #4CAF50;
-    background: #4CAF50;
-    transform: scale(1.2);
-}
-
-.step-dot.active i {
-    opacity: 1;
-    color: #fff;
-    transform: scale(1);
-}
-
-.step-dot.complete {
-    border-color: #4CAF50;
-    background: #4CAF50;
-}
-
-.step-dot.complete i {
-    opacity: 1;
-    color: #fff;
-}
-
-.step-labels {
+.progress-bar::before {
+    content: '';
     position: absolute;
-    top: 25px;
-    left: 0;
     right: 0;
-    display: flex;
-    justify-content: space-between;
-    padding: 0 1rem;
+    top: 50%;
+    transform: translate(50%, -50%);
+    width: calc(var(--progress-height) * 2);
+    height: calc(var(--progress-height) * 2);
+    background: var(--primary-light);
+    border-radius: 50%;
+    box-shadow: 0 0 15px rgba(76, 175, 80, 0.6);
 }
 
-.step-label {
-    font-size: 0.85rem;
-    color: var(--text-color);
-    opacity: 0.7;
-    text-align: center;
-    transition: all 0.4s ease;
-    width: 100px;
-    margin: 0 -50px;
-}
-
-.step-label.active {
-    color: #4CAF50;
-    opacity: 1;
-    font-weight: 500;
+@keyframes shine {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
 }
 
 /* Theme Switch */
@@ -460,18 +417,19 @@ p, li {
 }
 
 .btn {
-    padding: 0.8rem 1.5rem;
+    padding: 1rem 2rem;
     border-radius: 50px;
     font-weight: 500;
     letter-spacing: 0.5px;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
+    border: none;
 }
 
 .btn-primary {
-    background: linear-gradient(90deg, #4CAF50, #8BC34A);
-    border: none;
+    background: linear-gradient(90deg, var(--primary), var(--primary-light));
+    color: white;
     box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
 }
 
@@ -482,7 +440,6 @@ p, li {
 
 .btn-secondary {
     background: var(--bg-dark-light);
-    border: none;
     color: var(--text-color);
 }
 
@@ -492,281 +449,12 @@ p, li {
 }
 
 @media (max-width: 768px) {
-    .step-labels {
-        display: none;
-    }
-    
-    .progress {
-        margin-bottom: 2rem;
-    }
-    
     .form-navigation {
         flex-direction: column;
     }
     
     .btn {
         width: 100%;
-    }
-}
-
-/* Sections */
-section {
-    padding: 5rem 0;
-}
-
-/* About Page */
-.about-page {
-    padding-top: 120px;
-    padding-bottom: 4rem;
-    background: var(--bg-dark);
-    min-height: 100vh;
-}
-
-.about-content {
-    background: var(--bg-dark);
-    padding: 2rem;
-    border-radius: 1rem;
-    color: var(--text-color);
-}
-
-.about-card {
-    background: var(--card-bg);
-    padding: 2rem;
-    border-radius: 1rem;
-    margin-bottom: 2rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.about-card h2 {
-    color: var(--text-color);
-    margin-bottom: 1.5rem;
-}
-
-.about-card p {
-    color: var(--text-color);
-    margin-bottom: 0;
-}
-
-.team-member {
-    text-align: center;
-    padding: 1.5rem;
-    background: var(--bg-dark);
-    border-radius: 1rem;
-}
-
-.team-member img {
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
-    margin-bottom: 1rem;
-}
-
-.team-member h3 {
-    color: var(--text-color);
-    margin-bottom: 0.5rem;
-}
-
-.team-member p {
-    color: var(--text-light);
-}
-
-/* Cards */
-.card {
-    background-color: var(--bg-dark-light);
-    border: none;
-    border-radius: 15px;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    overflow: hidden;
-}
-
-.card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
-    transform: scaleX(0);
-    transition: transform 0.4s ease;
-}
-
-.card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-}
-
-.card:hover::before {
-    transform: scaleX(1);
-}
-
-.card-body {
-    padding: 2rem;
-}
-
-.card-title {
-    color: var(--text-light);
-    font-weight: 600;
-}
-
-.card-text {
-    color: var(--text-gray);
-}
-
-/* Service Cards */
-.service-card {
-    background: var(--bg-dark);
-    border: none;
-    border-radius: 1rem;
-    overflow: hidden;
-    height: 100%;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.service-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-}
-
-.service-image {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-}
-
-.service-icon {
-    font-size: 2.5rem;
-    color: var(--primary-color);
-    margin: 1rem 0;
-}
-
-.service-card .card-body {
-    padding: 2rem;
-    color: var(--text-color);
-}
-
-.service-card .card-title {
-    color: var(--text-color);
-    margin-bottom: 1rem;
-}
-
-.service-card .card-text {
-    color: var(--text-color);
-}
-
-.service-card ul li {
-    color: var(--text-color);
-    margin-bottom: 0.5rem;
-}
-
-/* Contact Section */
-.contact-info {
-    margin-bottom: 2rem;
-}
-
-.contact-info p {
-    color: var(--text-color);
-    font-size: 1.1rem;
-    margin-bottom: 1rem;
-    display: flex;
-    align-items: center;
-}
-
-.contact-info i {
-    color: var(--primary-color);
-    font-size: 1.2rem;
-    margin-right: 1rem;
-    width: 20px;
-}
-
-.opening-hours {
-    background: var(--bg-dark);
-    padding: 2rem;
-    border-radius: 1rem;
-    margin-bottom: 2rem;
-}
-
-.opening-hours h3 {
-    color: var(--text-color);
-    margin-bottom: 1.5rem;
-}
-
-.opening-hours p {
-    color: var(--text-color);
-    margin-bottom: 0.5rem;
-}
-
-.map-container {
-    border-radius: 1rem;
-    overflow: hidden;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.map-container img {
-    width: 100%;
-    height: auto;
-}
-
-/* Mobile Styles */
-@media (max-width: 768px) {
-    .navbar {
-        padding: 0.5rem;
-    }
-
-    .logo {
-        height: 32px;
-    }
-
-    .navbar-collapse {
-        background: var(--bg-dark);
-        padding: 1rem;
-        border-radius: 0 0 1rem 1rem;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-
-    .navbar-nav {
-        margin: 1rem 0;
-    }
-
-    .navbar-nav .nav-link {
-        padding: 0.75rem 1rem;
-        border-radius: 0.5rem;
-        margin: 0.25rem 0;
-    }
-
-    .navbar-nav .nav-link:hover,
-    .navbar-nav .nav-link.active {
-        background: var(--bg-dark-lighter);
-    }
-
-    .hero-section {
-        height: 80vh;
-        min-height: 500px;
-    }
-
-    .hero-content h1 {
-        font-size: 2.5rem;
-    }
-
-    .hero-content p {
-        font-size: 1.2rem;
-    }
-
-    .service-card {
-        margin-bottom: 2rem;
-    }
-
-    .contact-info p {
-        font-size: 1rem;
-    }
-
-    .opening-hours {
-        padding: 1.5rem;
-    }
-
-    .map-container iframe {
-        height: 300px;
     }
 }
 

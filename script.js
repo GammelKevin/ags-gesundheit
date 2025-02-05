@@ -39,39 +39,36 @@ document.addEventListener('DOMContentLoaded', () => {
     if (form) {
         const steps = document.querySelectorAll('.form-step');
         const progressBar = document.querySelector('.progress-bar');
-        const stepDots = document.querySelectorAll('.step-dot');
-        const stepLabels = document.querySelectorAll('.step-label');
         let currentStep = 1;
 
         // Update Progress
         const updateProgress = () => {
             const progress = ((currentStep - 1) / (steps.length - 1)) * 100;
             progressBar.style.width = `${progress}%`;
-            
-            stepDots.forEach((dot, index) => {
-                const step = index + 1;
-                dot.classList.remove('active', 'complete');
-                if (step === currentStep) {
-                    dot.classList.add('active');
-                    stepLabels[index].classList.add('active');
-                } else if (step < currentStep) {
-                    dot.classList.add('complete');
-                    stepLabels[index].classList.remove('active');
-                } else {
-                    stepLabels[index].classList.remove('active');
-                }
-            });
         };
 
         // Show Step
         const showStep = (step) => {
-            steps.forEach(s => s.classList.remove('active'));
-            const nextStep = document.querySelector(`.form-step[data-step="${step}"]`);
-            if (nextStep) {
-                nextStep.classList.add('active');
+            const currentStepEl = document.querySelector(`.form-step[data-step="${currentStep}"]`);
+            const nextStepEl = document.querySelector(`.form-step[data-step="${step}"]`);
+            
+            // Fade out current step
+            currentStepEl.style.opacity = '0';
+            currentStepEl.style.transform = 'translateY(10px)';
+            
+            setTimeout(() => {
+                currentStepEl.classList.remove('active');
+                nextStepEl.classList.add('active');
+                
+                // Fade in next step
+                setTimeout(() => {
+                    nextStepEl.style.opacity = '1';
+                    nextStepEl.style.transform = 'translateY(0)';
+                }, 50);
+                
                 currentStep = step;
                 updateProgress();
-            }
+            }, 300);
         };
 
         // Next Step
@@ -86,6 +83,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (!input.value.trim()) {
                         isValid = false;
                         input.classList.add('is-invalid');
+                        input.style.animation = 'shake 0.5s ease';
+                        setTimeout(() => input.style.animation = '', 500);
                     } else {
                         input.classList.remove('is-invalid');
                     }
@@ -112,54 +111,114 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             
             const submitBtn = form.querySelector('button[type="submit"]');
-            const originalText = submitBtn.innerHTML;
+            const spinner = submitBtn.querySelector('.spinner-border');
+            const btnText = submitBtn.querySelector('.btn-text');
+            
+            // Disable button and show spinner
             submitBtn.disabled = true;
-            submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Wird gesendet...';
+            spinner.classList.remove('d-none');
+            btnText.textContent = 'Wird gesendet...';
             
             try {
+                const formData = new FormData(form);
                 const response = await fetch(form.action, {
                     method: 'POST',
-                    body: new FormData(form),
+                    body: formData,
                     headers: {
                         'Accept': 'application/json'
                     }
                 });
                 
                 if (response.ok) {
-                    form.innerHTML = `
-                        <div class="text-center">
-                            <i class="fas fa-check-circle text-success" style="font-size: 4rem;"></i>
-                            <h3 class="mt-4">Vielen Dank!</h3>
-                            <p>Ihre Terminanfrage wurde erfolgreich gesendet.</p>
-                            <p>Wir werden uns schnellstmöglich bei Ihnen melden.</p>
-                            <a href="index.html" class="btn btn-primary mt-4">
-                                <i class="fas fa-home me-2"></i>Zurück zur Startseite
-                            </a>
-                        </div>
-                    `;
+                    // Success message with animation
+                    const container = form.closest('.container');
+                    container.style.opacity = '0';
+                    container.style.transform = 'translateY(10px)';
+                    
+                    setTimeout(() => {
+                        container.innerHTML = `
+                            <div class="text-center">
+                                <div class="success-checkmark">
+                                    <i class="fas fa-check-circle text-success" style="font-size: 5rem;"></i>
+                                </div>
+                                <h3 class="mt-4">Vielen Dank!</h3>
+                                <p class="lead">Ihre Terminanfrage wurde erfolgreich gesendet.</p>
+                                <p>Wir werden uns schnellstmöglich bei Ihnen melden.</p>
+                                <a href="index.html" class="btn btn-primary mt-4">
+                                    <i class="fas fa-home me-2"></i>Zurück zur Startseite
+                                </a>
+                            </div>
+                        `;
+                        
+                        // Fade in success message
+                        setTimeout(() => {
+                            container.style.opacity = '1';
+                            container.style.transform = 'translateY(0)';
+                        }, 50);
+                    }, 300);
                 } else {
                     throw new Error('Fehler beim Senden');
                 }
             } catch (error) {
+                // Reset button
                 submitBtn.disabled = false;
-                submitBtn.innerHTML = originalText;
+                spinner.classList.add('d-none');
+                btnText.textContent = 'Anfrage absenden';
                 
+                // Show error message with animation
                 const errorDiv = document.createElement('div');
                 errorDiv.className = 'alert alert-danger mt-3';
                 errorDiv.innerHTML = `
                     <i class="fas fa-exclamation-circle me-2"></i>
                     Es ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.
                 `;
+                errorDiv.style.animation = 'shake 0.5s ease';
+                
                 form.insertBefore(errorDiv, form.firstChild);
                 
                 setTimeout(() => {
-                    errorDiv.remove();
+                    errorDiv.style.opacity = '0';
+                    errorDiv.style.transform = 'translateY(-10px)';
+                    setTimeout(() => errorDiv.remove(), 300);
                 }, 5000);
             }
         });
 
         // Initialize
         updateProgress();
+        
+        // Add CSS animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                25% { transform: translateX(-10px); }
+                75% { transform: translateX(10px); }
+            }
+            
+            .form-step {
+                transition: all 0.3s ease;
+            }
+            
+            .success-checkmark {
+                animation: checkmark 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            }
+            
+            @keyframes checkmark {
+                0% {
+                    transform: scale(0);
+                    opacity: 0;
+                }
+                50% {
+                    transform: scale(1.2);
+                }
+                100% {
+                    transform: scale(1);
+                    opacity: 1;
+                }
+            }
+        `;
+        document.head.appendChild(style);
     }
 
     // Multi-step Form
