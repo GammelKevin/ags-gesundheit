@@ -274,6 +274,119 @@ section {
     color: var(--text-gray);
 }
 
+/* Service Cards */
+.service-card {
+    background: var(--bg-dark);
+    border: none;
+    border-radius: 1rem;
+    overflow: hidden;
+    height: 100%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.service-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.service-icon {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin: 1rem 0;
+}
+
+.service-card .card-body {
+    padding: 2rem;
+    color: var(--text-color);
+}
+
+.service-card .card-title {
+    color: var(--text-color);
+    margin-bottom: 1rem;
+}
+
+.service-card .card-text {
+    color: var(--text-color);
+}
+
+.service-card ul li {
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+}
+
+/* Contact Section */
+.contact-info {
+    margin-bottom: 2rem;
+}
+
+.contact-info p {
+    color: var(--text-color);
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.contact-info i {
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    margin-right: 1rem;
+    width: 20px;
+}
+
+.opening-hours {
+    background: var(--bg-dark);
+    padding: 2rem;
+    border-radius: 1rem;
+    margin-bottom: 2rem;
+}
+
+.opening-hours h3 {
+    color: var(--text-color);
+    margin-bottom: 1.5rem;
+}
+
+.opening-hours p {
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+}
+
+.map-container {
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.map-container img {
+    width: 100%;
+    height: auto;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+    .service-card {
+        margin-bottom: 2rem;
+    }
+
+    .service-image {
+        height: 150px;
+    }
+
+    .contact-info p {
+        font-size: 1rem;
+    }
+
+    .opening-hours {
+        padding: 1.5rem;
+    }
+}
+
 /* Form Styles */
 .appointment-section {
     background-color: var(--bg-dark);
