@@ -72,21 +72,27 @@ document.addEventListener('DOMContentLoaded', function() {
             });
 
             if (isValid) {
-                // Show success message
-                const successMessage = document.createElement('div');
-                successMessage.className = 'alert alert-success mt-3 animate__animated animate__fadeIn';
-                successMessage.innerHTML = `
-                    <h4 class="alert-heading">Vielen Dank für Ihre Anfrage!</h4>
-                    <p>Wir werden uns schnellstmöglich bei Ihnen melden.</p>
+                // Create success alert
+                const successAlert = document.createElement('div');
+                successAlert.className = 'alert alert-success mt-4';
+                successAlert.innerHTML = `
+                    <h4 class="alert-heading">Vielen Dank für Ihre Anfrage! 🎉</h4>
+                    <p class="mb-0">Wir haben Ihre Terminanfrage erhalten und werden uns schnellstmöglich bei Ihnen melden.</p>
                 `;
-                
-                // Replace form with success message
+
+                // Smooth fade out of form
+                appointmentForm.style.transition = 'opacity 0.5s ease';
                 appointmentForm.style.opacity = '0';
+
+                // After fade out, show success message
                 setTimeout(() => {
                     appointmentForm.innerHTML = '';
-                    appointmentForm.appendChild(successMessage);
+                    appointmentForm.appendChild(successAlert);
                     appointmentForm.style.opacity = '1';
-                }, 300);
+                }, 500);
+
+                // Reset form (in background)
+                this.reset();
             }
         });
 
