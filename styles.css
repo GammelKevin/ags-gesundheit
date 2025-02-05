@@ -257,6 +257,18 @@ p, li {
     }
 }
 
+/* Page Content */
+.page-content {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.page-content.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
 /* Theme Switch */
 .theme-switch {
     background: transparent;
@@ -1041,23 +1053,6 @@ footer {
 .btn-secondary:hover {
     background: var(--bg-dark);
     transform: translateY(-3px);
-}
-
-/* Page Content */
-.page-content {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-    min-height: 100vh;
-    position: relative;
-    z-index: 1;
-    background: var(--bg-dark);
-}
-
-.page-loaded .page-content {
-    opacity: 1;
-    transform: translateY(0);
-    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Icon Animation */

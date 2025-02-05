@@ -16,7 +16,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Logo Intro Animation
     const logoIntro = document.querySelector('.logo-intro');
+    const content = document.querySelector('.page-content');
+    
     if (logoIntro) {
+        // Show content initially
+        if (content) {
+            content.style.opacity = '1';
+            content.style.visibility = 'visible';
+        }
+        
+        // Fade out logo after delay
         setTimeout(() => {
             logoIntro.classList.add('fade-out');
             setTimeout(() => {
