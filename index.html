@@ -46,7 +46,7 @@
         <nav class="navbar navbar-expand-lg fixed-top">
             <div class="container">
                 <a class="navbar-brand" href="#">
-                    <img src="images/logo.svg" alt="AGS Gesundheitszentrum Logo" height="40">
+                    <img src="images/logo.png" alt="AGS Gesundheitszentrum Logo" class="logo">
                 </a>
                 <button class="navbar-toggler custom-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                     <i class="fas fa-bars"></i>
@@ -54,19 +54,16 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="index.html">Home</a>
+                            <a class="nav-link active" href="#home">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#services">Leistungen</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="about.html">Über uns</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="termin.html">Termin</a>
-                        </li>
-                        <li class="nav-item">
-                            <button class="theme-switch">
-                                <i class="fas fa-sun"></i>
-                                <i class="fas fa-moon"></i>
-                            </button>
+                            <a class="nav-link" href="#contact">Kontakt</a>
                         </li>
                     </ul>
                 </div>
@@ -74,14 +71,16 @@
         </nav>
 
         <!-- Hero Section -->
-        <section class="hero-section">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-lg-6">
-                        <h1>Willkommen im AGS Gesundheitszentrum</h1>
-                        <p>Ihr Partner für Gesundheit und Wohlbefinden in Ihrer Nähe.</p>
-                        <a href="termin.html" class="btn btn-primary">Termin vereinbaren</a>
-                    </div>
+        <section id="home" class="hero-section">
+            <div class="hero-image">
+                <img src="images/hero.jpg" alt="AGS Gesundheitszentrum">
+                <div class="hero-overlay"></div>
+            </div>
+            <div class="hero-content">
+                <div class="container">
+                    <h1>Willkommen im AGS Gesundheitszentrum</h1>
+                    <p>Ihr Partner für Gesundheit und Wohlbefinden in Aholming</p>
+                    <a href="#contact" class="btn btn-primary">Termin vereinbaren</a>
                 </div>
             </div>
         </section>
@@ -163,7 +162,14 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="map-container">
-                            <img src="images/map.jpg" alt="Standort" class="img-fluid rounded">
+                            <iframe
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2640.4475023465187!2d12.932439776268495!3d48.73675037123673!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47744e8b8b8b8b8b%3A0x0!2sFlurweg+13%2C+94527+Aholming!5e0!3m2!1sde!2sde!4v1625147200000!5m2!1sde!2sde"
+                                width="100%"
+                                height="450"
+                                style="border:0; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);"
+                                allowfullscreen=""
+                                loading="lazy">
+                            </iframe>
                         </div>
                     </div>
                 </div>
@@ -177,7 +183,8 @@
                     <div class="col-md-6">
                         <h5>Kontakt</h5>
                         <p>
-                            <i class="fas fa-map-marker-alt"></i> Schulstraße 5, 94527 Aholming<br>                            <i class="fas fa-phone"></i> Tel: 09938/9599963<br>
+                            <i class="fas fa-map-marker-alt"></i> Schulstraße 5, 94527 Aholming<br>
+                            <i class="fas fa-phone"></i> Tel: 09938/9599963<br>
                             <i class="fas fa-envelope"></i> E-Mail: info@ags-gesundheit.de
                         </p>
                     </div>

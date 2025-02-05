@@ -40,14 +40,74 @@ p, li {
     font-weight: 300;
 }
 
+/* Hero Section */
+.hero-section {
+    position: relative;
+    height: 100vh;
+    min-height: 600px;
+    overflow: hidden;
+}
+
+.hero-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.hero-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #fff;
+}
+
+.hero-content h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.hero-content p {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
 /* Navigation */
 .navbar {
     background: var(--bg-dark);
     backdrop-filter: blur(10px);
     padding: 1rem;
+    transition: all 0.3s ease;
 }
 
-.navbar-brand img {
+.navbar.scrolled {
+    background: var(--bg-dark);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
     height: 40px;
     width: auto;
 }
@@ -64,15 +124,36 @@ p, li {
     color: var(--text-color);
 }
 
+.navbar-nav {
+    align-items: center;
+}
+
 .navbar-nav .nav-link {
     color: var(--text-color) !important;
     margin: 0 1rem;
     position: relative;
+    font-weight: 500;
 }
 
 .navbar-nav .nav-link:hover,
 .navbar-nav .nav-link.active {
     color: var(--primary-color) !important;
+}
+
+.navbar-nav .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--primary-color);
+    transition: width 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover::after,
+.navbar-nav .nav-link.active::after {
+    width: 100%;
 }
 
 /* Logo Animation */
@@ -163,15 +244,6 @@ p, li {
 /* Sections */
 section {
     padding: 5rem 0;
-}
-
-.hero-section {
-    background-color: var(--bg-dark-light);
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    position: relative;
-    overflow: hidden;
 }
 
 /* About Page */
@@ -370,12 +442,51 @@ section {
 
 /* Mobile Styles */
 @media (max-width: 768px) {
-    .service-card {
-        margin-bottom: 2rem;
+    .navbar {
+        padding: 0.5rem;
     }
 
-    .service-image {
-        height: 150px;
+    .logo {
+        height: 32px;
+    }
+
+    .navbar-collapse {
+        background: var(--bg-dark);
+        padding: 1rem;
+        border-radius: 0 0 1rem 1rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar-nav {
+        margin: 1rem 0;
+    }
+
+    .navbar-nav .nav-link {
+        padding: 0.75rem 1rem;
+        border-radius: 0.5rem;
+        margin: 0.25rem 0;
+    }
+
+    .navbar-nav .nav-link:hover,
+    .navbar-nav .nav-link.active {
+        background: var(--bg-dark-lighter);
+    }
+
+    .hero-section {
+        height: 80vh;
+        min-height: 500px;
+    }
+
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+
+    .hero-content p {
+        font-size: 1.2rem;
+    }
+
+    .service-card {
+        margin-bottom: 2rem;
     }
 
     .contact-info p {
@@ -384,6 +495,59 @@ section {
 
     .opening-hours {
         padding: 1.5rem;
+    }
+
+    .map-container iframe {
+        height: 300px;
+    }
+}
+
+/* Theme Switch */
+.theme-switch {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    background: var(--bg-dark-lighter);
+    border-radius: 50px;
+    padding: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.theme-switch:hover {
+    transform: scale(1.1);
+}
+
+.theme-switch i {
+    font-size: 1.2rem;
+    color: var(--text-color);
+}
+
+.theme-switch .fa-sun {
+    display: none;
+}
+
+.theme-switch .fa-moon {
+    display: block;
+}
+
+[data-theme="dark"] .theme-switch .fa-sun {
+    display: block;
+}
+
+[data-theme="dark"] .theme-switch .fa-moon {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .theme-switch {
+        bottom: 70px;
+        right: 10px;
     }
 }
 
