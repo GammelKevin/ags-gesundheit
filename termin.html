@@ -56,7 +56,12 @@
                             </div>
                         </div>
 
-                        <form id="appointmentForm" action="https://formspree.io/f/xdoqgwjz" method="POST">
+                        <form id="appointmentForm" action="https://api.web3forms.com/submit" method="POST">
+                            <input type="hidden" name="access_key" value="d3086d53-cbd7-4307-a3b7-79f87e8528e6">
+                            <input type="hidden" name="subject" value="Neue Terminanfrage - AGS Gesundheitszentrum">
+                            <input type="hidden" name="from_name" value="AGS Gesundheitszentrum">
+                            <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+
                             <!-- Step 1: Personal Info -->
                             <div class="form-step active" data-step="1">
                                 <div class="row g-4">
@@ -70,7 +75,10 @@
                                         <input type="tel" class="form-control" name="phone" placeholder="Telefon *" required>
                                     </div>
                                     <div class="col-md-6">
-                                        <input type="date" class="form-control" name="birthdate" required>
+                                        <input type="date" class="form-control" name="birthdate" placeholder="Geburtsdatum *" required>
+                                    </div>
+                                    <div class="col-12">
+                                        <input type="text" class="form-control" name="address" placeholder="Adresse">
                                     </div>
                                 </div>
                                 <div class="form-navigation">
@@ -79,7 +87,7 @@
                                 </div>
                             </div>
 
-                            <!-- Step 2: Appointment Details -->
+                            <!-- Step 2: Medical Info -->
                             <div class="form-step" data-step="2">
                                 <div class="row g-4">
                                     <div class="col-12">
@@ -89,6 +97,8 @@
                                             <option value="Massage">Massage</option>
                                             <option value="Krankengymnastik">Krankengymnastik</option>
                                             <option value="Manuelle Therapie">Manuelle Therapie</option>
+                                            <option value="Lymphdrainage">Lymphdrainage</option>
+                                            <option value="Faszientherapie">Faszientherapie</option>
                                         </select>
                                     </div>
                                     <div class="col-md-6">
@@ -101,6 +111,24 @@
                                     <div class="col-md-6">
                                         <input type="text" class="form-control" name="insurance_company" placeholder="Krankenkasse *" required>
                                     </div>
+                                    <div class="col-12">
+                                        <textarea class="form-control" name="symptoms" rows="3" placeholder="Beschwerden/Symptome *" required></textarea>
+                                    </div>
+                                    <div class="col-12">
+                                        <select class="form-select" name="pain_level">
+                                            <option value="">Schmerzlevel (1-10)</option>
+                                            <option value="1">1 - Kaum Schmerzen</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5 - Mittlere Schmerzen</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10 - Extreme Schmerzen</option>
+                                        </select>
+                                    </div>
                                 </div>
                                 <div class="form-navigation">
                                     <button type="button" class="btn btn-secondary prev-btn">Zurück</button>
@@ -111,8 +139,34 @@
                             <!-- Step 3: Additional Info -->
                             <div class="form-step" data-step="3">
                                 <div class="row g-4">
+                                    <div class="col-md-6">
+                                        <select class="form-select" name="preferred_days" multiple>
+                                            <option value="" disabled>Bevorzugte Tage</option>
+                                            <option value="Montag">Montag</option>
+                                            <option value="Dienstag">Dienstag</option>
+                                            <option value="Mittwoch">Mittwoch</option>
+                                            <option value="Donnerstag">Donnerstag</option>
+                                            <option value="Freitag">Freitag</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <select class="form-select" name="preferred_time">
+                                            <option value="">Bevorzugte Tageszeit</option>
+                                            <option value="Morgens">Morgens (8-12 Uhr)</option>
+                                            <option value="Mittags">Mittags (12-15 Uhr)</option>
+                                            <option value="Nachmittags">Nachmittags (15-18 Uhr)</option>
+                                        </select>
+                                    </div>
                                     <div class="col-12">
-                                        <textarea class="form-control" name="notes" rows="4" placeholder="Beschwerden oder Anmerkungen"></textarea>
+                                        <textarea class="form-control" name="notes" rows="3" placeholder="Zusätzliche Anmerkungen"></textarea>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="previous_treatment" id="previousTreatment">
+                                            <label class="form-check-label" for="previousTreatment">
+                                                Ich wurde bereits physiotherapeutisch behandelt
+                                            </label>
+                                        </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="form-check">
