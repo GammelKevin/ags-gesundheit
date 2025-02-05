@@ -46,33 +46,27 @@
         <nav class="navbar navbar-expand-lg fixed-top">
             <div class="container">
                 <a class="navbar-brand" href="#">
-                    <!-- Logo SVG -->
-                    <svg class="logo-nav" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                        <path class="line" d="M40,60 L40,140 Q40,160 60,160 L140,160 Q160,160 160,140 L160,60 Q160,40 140,40 L60,40 Q40,40 40,60 Z"/>
-                        <text class="text" x="100" y="110" text-anchor="middle" font-size="48">AGS</text>
-                        <path class="line accent" d="M60,130 L80,130 L90,120 L110,140 L120,130 L140,130"/>
-                    </svg>
-                    AGS Gesundheit
+                    <img src="images/logo.svg" alt="AGS Gesundheitszentrum Logo" height="40">
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                    <span class="navbar-toggler-icon"></span>
+                <button class="navbar-toggler custom-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <i class="fas fa-bars"></i>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="#home">Home</a>
+                            <a class="nav-link" href="index.html">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#services">Leistungen</a>
+                            <a class="nav-link" href="about.html">Über uns</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#about">Über uns</a>
+                            <a class="nav-link" href="termin.html">Termin</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#contact">Kontakt</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="termin.html">Termin vereinbaren</a>
+                            <button class="theme-switch">
+                                <i class="fas fa-sun"></i>
+                                <i class="fas fa-moon"></i>
+                            </button>
                         </li>
                     </ul>
                 </div>
@@ -80,98 +74,42 @@
         </nav>
 
         <!-- Hero Section -->
-        <header id="home" class="hero d-flex align-items-center">
+        <section class="hero-section">
             <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 mx-auto text-center">
-                        <h1 class="mb-4">Willkommen im AGS Gesundheitszentrum</h1>
-                        <p class="lead mb-5">Ihr Partner für Gesundheit und Wohlbefinden in Aholming</p>
-                        <a href="termin.html" class="btn btn-primary btn-lg px-5 py-3">Jetzt Termin vereinbaren</a>
-                    </div>
-                </div>
-            </div>
-        </header>
-
-        <!-- Services Section -->
-        <section id="services" class="py-5">
-            <div class="container">
-                <h2 class="text-center mb-5">Unsere Leistungen</h2>
-                <div class="row">
-                    <div class="col-md-4 mb-4">
-                        <div class="service-card card">
-                            <img src="images/service1.jpg" class="service-image" alt="Physiotherapie">
-                            <div class="card-body text-center">
-                                <i class="fas fa-hands service-icon"></i>
-                                <h3 class="card-title">Physiotherapie</h3>
-                                <p class="card-text">Professionelle physiotherapeutische Behandlungen für verschiedene Beschwerden:</p>
-                                <ul class="list-unstyled">
-                                    <li>• Manuelle Therapie</li>
-                                    <li>• Krankengymnastik</li>
-                                    <li>• Bewegungstherapie</li>
-                                    <li>• Schmerztherapie</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 mb-4">
-                        <div class="service-card card">
-                            <img src="images/service2.jpg" class="service-image" alt="Massage">
-                            <div class="card-body text-center">
-                                <i class="fas fa-spa service-icon"></i>
-                                <h3 class="card-title">Massage</h3>
-                                <p class="card-text">Entspannende und heilende Massagetherapien:</p>
-                                <ul class="list-unstyled">
-                                    <li>• Klassische Massage</li>
-                                    <li>• Sportmassage</li>
-                                    <li>• Lymphdrainage</li>
-                                    <li>• Triggerpunktbehandlung</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 mb-4">
-                        <div class="service-card card">
-                            <img src="images/service3.jpg" class="service-image" alt="Fitness">
-                            <div class="card-body text-center">
-                                <i class="fas fa-dumbbell service-icon"></i>
-                                <h3 class="card-title">Fitness & Training</h3>
-                                <p class="card-text">Individuelles Training und Beratung:</p>
-                                <ul class="list-unstyled">
-                                    <li>• Trainingsplanung</li>
-                                    <li>• Reha-Sport</li>
-                                    <li>• Präventionskurse</li>
-                                    <li>• Ernährungsberatung</li>
-                                </ul>
-                            </div>
-                        </div>
+                <div class="row align-items-center">
+                    <div class="col-lg-6">
+                        <h1>Willkommen im AGS Gesundheitszentrum</h1>
+                        <p>Ihr Partner für Gesundheit und Wohlbefinden in Ihrer Nähe.</p>
+                        <a href="termin.html" class="btn btn-primary">Termin vereinbaren</a>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- About Section -->
-        <section id="about" class="py-5 bg-light">
+        <!-- Services Section -->
+        <section class="services-section">
             <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-lg-6 mb-4 mb-lg-0">
-                        <img src="images/about.jpg" alt="Über uns" class="img-fluid about-image">
+                <h2>Unsere Leistungen</h2>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="service-card">
+                            <i class="fas fa-heartbeat"></i>
+                            <h3>Gesundheitscheck</h3>
+                            <p>Umfassende Untersuchungen für Ihre Gesundheit.</p>
+                        </div>
                     </div>
-                    <div class="col-lg-6">
-                        <h2 class="mb-5">Über uns</h2>
-                        
-                        <div class="mb-5">
-                            <h4 class="mb-4">Herzlich Willkommen</h4>
-                            <p class="lead">Das AGS Gesundheitszentrum in Aholming, unter der Leitung von Gerhard Stasiczek, steht für qualitativ hochwertige Gesundheitsdienstleistungen und persönliche Betreuung.</p>
+                    <div class="col-md-4">
+                        <div class="service-card">
+                            <i class="fas fa-dumbbell"></i>
+                            <h3>Fitness & Training</h3>
+                            <p>Individuell angepasste Trainingsprogramme.</p>
                         </div>
-                        
-                        <div class="mb-5">
-                            <h4 class="mb-4">Unsere Philosophie</h4>
-                            <p>Wir verstehen jeden Patienten als Individuum und entwickeln maßgeschneiderte Behandlungskonzepte, die optimal auf Ihre persönlichen Bedürfnisse und Ziele abgestimmt sind.</p>
-                        </div>
-                        
-                        <div class="mb-5">
-                            <h4 class="mb-4">Persönliche Betreuung</h4>
-                            <p>In unserem Zentrum werden Sie von mir, Gerhard Stasiczek, persönlich betreut. Unterstützt werde ich dabei von meiner kompetenten Sekretärin, die sich um alle organisatorischen Belange kümmert. So können wir uns voll und ganz auf Ihre Behandlung und Ihr Wohlbefinden konzentrieren.</p>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="service-card">
+                            <i class="fas fa-spa"></i>
+                            <h3>Wellness & Spa</h3>
+                            <p>Entspannung und Regeneration für Körper und Geist.</p>
                         </div>
                     </div>
                 </div>
