@@ -215,45 +215,53 @@
     <!-- Appointment Section -->
     <section id="termin" class="py-5 bg-light">
         <div class="container">
+            <h2 class="text-center mb-5">Terminanfrage</h2>
             <div class="row justify-content-center">
                 <div class="col-md-8">
-                    <div class="appointment-form">
-                        <h2 class="text-center mb-4">Terminanfrage</h2>
-                        <form id="appointmentForm">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <input type="text" class="form-control" placeholder="Vorname" required>
-                                </div>
-                                <div class="col-md-6">
-                                    <input type="text" class="form-control" placeholder="Nachname" required>
-                                </div>
+                    <form name="terminanfrage" method="POST" data-netlify="true" class="appointment-form">
+                        <input type="hidden" name="form-name" value="terminanfrage">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="name" class="form-label">Name *</label>
+                                <input type="text" class="form-control" id="name" name="name" required>
                             </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <input type="email" class="form-control" placeholder="E-Mail" required>
-                                </div>
-                                <div class="col-md-6">
-                                    <input type="tel" class="form-control" placeholder="Telefon" required>
-                                </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="email" class="form-label">E-Mail *</label>
+                                <input type="email" class="form-control" id="email" name="email" required>
                             </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <select class="form-control" required>
-                                        <option value="">Behandlung auswählen</option>
-                                        <option>Physiotherapie</option>
-                                        <option>Massage</option>
-                                        <option>Fitness-Beratung</option>
-                                        <option>Ernährungsberatung</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-6">
-                                    <input type="date" class="form-control" required>
-                                </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="phone" class="form-label">Telefon *</label>
+                                <input type="tel" class="form-control" id="phone" name="phone" required>
                             </div>
-                            <textarea class="form-control" rows="4" placeholder="Ihre Nachricht (optional)"></textarea>
-                            <button type="submit" class="btn btn-primary w-100">Termin anfragen</button>
-                        </form>
-                    </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="date" class="form-label">Wunschtermin</label>
+                                <input type="date" class="form-control" id="date" name="date">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="service" class="form-label">Gewünschte Behandlung *</label>
+                            <select class="form-select" id="service" name="service" required>
+                                <option value="">Bitte wählen...</option>
+                                <option value="Physiotherapie">Physiotherapie</option>
+                                <option value="Massage">Massage</option>
+                                <option value="Fitness">Fitness</option>
+                                <option value="Sonstiges">Sonstiges</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="message" class="form-label">Ihre Nachricht</label>
+                            <textarea class="form-control" id="message" name="message" rows="4"></textarea>
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="privacy" name="privacy" required>
+                            <label class="form-check-label" for="privacy">
+                                Ich stimme der Verarbeitung meiner Daten gemäß der Datenschutzerklärung zu *
+                            </label>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Anfrage absenden</button>
+                    </form>
                 </div>
             </div>
         </div>
