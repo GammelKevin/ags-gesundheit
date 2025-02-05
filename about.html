@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="de" data-theme="light">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Über uns - AGS Gesundheitszentrum</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
@@ -13,7 +13,7 @@
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
             <a class="navbar-brand" href="index.html">
-                <img src="images/logo.svg" alt="AGS Gesundheitszentrum Logo" height="40">
+                <img src="images/logo.svg" alt="AGS Gesundheitszentrum Logo" class="logo">
             </a>
             <button class="navbar-toggler custom-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <i class="fas fa-bars"></i>
@@ -24,78 +24,93 @@
                         <a class="nav-link" href="index.html">Home</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="index.html#services">Leistungen</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link active" href="about.html">Über uns</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="termin.html">Termin</a>
-                    </li>
-                    <li class="nav-item">
-                        <button class="theme-switch">
-                            <i class="fas fa-sun"></i>
-                            <i class="fas fa-moon"></i>
-                        </button>
+                        <a class="nav-link" href="index.html#contact">Kontakt</a>
                     </li>
                 </ul>
+                <button class="theme-switch ms-3">
+                    <i class="fas fa-sun"></i>
+                    <i class="fas fa-moon"></i>
+                </button>
             </div>
         </div>
     </nav>
 
-    <!-- About Section -->
+    <!-- About Content -->
     <section class="about-page">
         <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-10">
-                    <div class="about-content">
-                        <h1 class="mb-5">Über uns</h1>
-                        
-                        <div class="about-card mb-5">
-                            <h2>Herzlich Willkommen</h2>
-                            <p>Das AGS Gesundheitszentrum in Aholming, unter der Leitung von Gerhard Stasiczek, steht für qualitativ hochwertige Gesundheitsdienstleistungen und persönliche Betreuung.</p>
-                        </div>
-                        
-                        <div class="about-card mb-5">
-                            <h2>Unsere Philosophie</h2>
-                            <p>Wir verstehen jeden Patienten als Individuum und entwickeln maßgeschneiderte Behandlungskonzepte, die optimal auf Ihre persönlichen Bedürfnisse und Ziele abgestimmt sind.</p>
-                        </div>
-                        
-                        <div class="about-card mb-5">
-                            <h2>Persönliche Betreuung</h2>
-                            <p>In unserem Zentrum werden Sie von mir, Gerhard Stasiczek, persönlich betreut. Unterstützt werde ich dabei von meiner kompetenten Sekretärin, die sich um alle organisatorischen Belange kümmert. So können wir uns voll und ganz auf Ihre Behandlung und Ihr Wohlbefinden konzentrieren.</p>
-                        </div>
-
-                        <div class="about-card mb-5">
-                            <h2>Unser Team</h2>
-                            <div class="row">
-                                <div class="col-md-6 mb-4">
-                                    <div class="team-member">
-                                        <img src="images/gerhard.jpg" alt="Gerhard Stasiczek" class="img-fluid rounded-circle mb-3">
-                                        <h3>Gerhard Stasiczek</h3>
-                                        <p class="text-muted">Inhaber & Therapeut</p>
-                                    </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="text-center mb-5">Über uns</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 mb-4">
+                    <div class="about-card">
+                        <h2>Unsere Geschichte</h2>
+                        <p>Das AGS Gesundheitszentrum wurde mit dem Ziel gegründet, Menschen in Aholming und Umgebung eine umfassende und professionelle Gesundheitsversorgung zu bieten. Seit unserer Gründung haben wir uns kontinuierlich weiterentwickelt und unser Angebot stetig erweitert.</p>
+                    </div>
+                </div>
+                <div class="col-lg-6 mb-4">
+                    <div class="about-card">
+                        <h2>Unsere Mission</h2>
+                        <p>Wir setzen uns dafür ein, die Gesundheit und das Wohlbefinden unserer Patienten zu verbessern. Durch individuelle Betreuung und modernste Therapiemethoden helfen wir Ihnen, Ihre persönlichen Gesundheitsziele zu erreichen.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 mb-4">
+                    <div class="about-card">
+                        <h2>Unser Team</h2>
+                        <div class="row mt-4">
+                            <div class="col-md-4 mb-4">
+                                <div class="team-member">
+                                    <img src="images/team1.jpg" alt="Teammitglied 1" class="rounded-circle">
+                                    <h3>Dr. Anna Schmidt</h3>
+                                    <p>Physiotherapeutin</p>
                                 </div>
-                                <div class="col-md-6 mb-4">
-                                    <div class="team-member">
-                                        <img src="images/sekretaerin.jpg" alt="Sekretärin" class="img-fluid rounded-circle mb-3">
-                                        <h3>Andrea Müller</h3>
-                                        <p class="text-muted">Sekretärin</p>
-                                    </div>
+                            </div>
+                            <div class="col-md-4 mb-4">
+                                <div class="team-member">
+                                    <img src="images/team2.jpg" alt="Teammitglied 2" class="rounded-circle">
+                                    <h3>Michael Weber</h3>
+                                    <p>Sporttherapeut</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-4">
+                                <div class="team-member">
+                                    <img src="images/team3.jpg" alt="Teammitglied 3" class="rounded-circle">
+                                    <h3>Lisa Müller</h3>
+                                    <p>Ernährungsberaterin</p>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="about-card">
-                            <h2>Standort</h2>
-                            <div class="row align-items-center">
-                                <div class="col-md-6 mb-4">
-                                    <img src="images/zentrum.jpg" alt="AGS Gesundheitszentrum" class="img-fluid rounded">
-                                </div>
-                                <div class="col-md-6">
-                                    <h3>AGS Gesundheitszentrum</h3>
-                                    <p>Hauptstraße 123<br>94527 Aholming</p>
-                                    <p><i class="fas fa-phone me-2"></i>+49 (0) 123 456789</p>
-                                    <p><i class="fas fa-envelope me-2"></i>info@ags-gesundheit.de</p>
-                                </div>
-                            </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 mb-4">
+                    <div class="about-card">
+                        <h2>Unser Standort</h2>
+                        <div class="contact-info mt-4">
+                            <p><i class="fas fa-map-marker-alt"></i> Flurweg 13, 94527 Aholming</p>
+                            <p><i class="fas fa-phone"></i> 09938 903000</p>
+                            <p><i class="fas fa-envelope"></i> info@ags-gesundheit.de</p>
+                        </div>
+                        <div class="map-container mt-4">
+                            <iframe
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2640.4475023465187!2d12.932439776268495!3d48.73675037123673!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47744e8b8b8b8b8b%3A0x0!2sFlurweg+13%2C+94527+Aholming!5e0!3m2!1sde!2sde!4v1625147200000!5m2!1sde!2sde"
+                                width="100%"
+                                height="450"
+                                style="border:0; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);"
+                                allowfullscreen=""
+                                loading="lazy">
+                            </iframe>
                         </div>
                     </div>
                 </div>
@@ -103,7 +118,35 @@
         </div>
     </section>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <!-- Footer -->
+    <footer class="footer py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>Kontakt</h5>
+                    <p>
+                        <i class="fas fa-map-marker-alt"></i> Flurweg 13, 94527 Aholming<br>
+                        <i class="fas fa-phone"></i> 09938 903000<br>
+                        <i class="fas fa-envelope"></i> info@ags-gesundheit.de
+                    </p>
+                </div>
+                <div class="col-md-6">
+                    <h5>Öffnungszeiten</h5>
+                    <p>
+                        Montag - Freitag: 7:00 - 19:00 Uhr<br>
+                        Samstag: 7:00 - 12:00 Uhr
+                    </p>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-12 text-center">
+                    <p class="mb-0">&copy; 2024 AGS Gesundheitszentrum. Alle Rechte vorbehalten.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
