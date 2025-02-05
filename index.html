@@ -239,30 +239,84 @@
                                 <input type="tel" class="form-control" id="phone" name="phone" required>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label for="date" class="form-label">Wunschtermin</label>
-                                <input type="date" class="form-control" id="date" name="date">
+                                <label for="service" class="form-label">Gewünschte Behandlung *</label>
+                                <select class="form-select" id="service" name="service" required>
+                                    <option value="">Bitte wählen...</option>
+                                    <option value="Physiotherapie">Physiotherapie</option>
+                                    <option value="Massage">Massage</option>
+                                    <option value="Fitness">Fitness</option>
+                                    <option value="Sonstiges">Sonstiges</option>
+                                </select>
                             </div>
                         </div>
-                        <div class="mb-3">
-                            <label for="service" class="form-label">Gewünschte Behandlung *</label>
-                            <select class="form-select" id="service" name="service" required>
-                                <option value="">Bitte wählen...</option>
-                                <option value="Physiotherapie">Physiotherapie</option>
-                                <option value="Massage">Massage</option>
-                                <option value="Fitness">Fitness</option>
-                                <option value="Sonstiges">Sonstiges</option>
-                            </select>
+                        
+                        <!-- Neue Felder für Terminwunsch -->
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="date" class="form-label">Wunschtermin *</label>
+                                <input type="date" class="form-control" id="date" name="date" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="time" class="form-label">Wunschuhrzeit *</label>
+                                <select class="form-select" id="time" name="time" required>
+                                    <option value="">Bitte wählen...</option>
+                                    <option value="08:00">08:00 Uhr</option>
+                                    <option value="09:00">09:00 Uhr</option>
+                                    <option value="10:00">10:00 Uhr</option>
+                                    <option value="11:00">11:00 Uhr</option>
+                                    <option value="12:00">12:00 Uhr</option>
+                                    <option value="13:00">13:00 Uhr</option>
+                                    <option value="14:00">14:00 Uhr</option>
+                                    <option value="15:00">15:00 Uhr</option>
+                                    <option value="16:00">16:00 Uhr</option>
+                                    <option value="17:00">17:00 Uhr</option>
+                                </select>
+                            </div>
                         </div>
+
+                        <!-- Alternative Termine -->
                         <div class="mb-3">
-                            <label for="message" class="form-label">Ihre Nachricht</label>
-                            <textarea class="form-control" id="message" name="message" rows="4"></textarea>
+                            <label for="altDates" class="form-label">Alternative Termine (optional)</label>
+                            <textarea class="form-control" id="altDates" name="altDates" rows="2" placeholder="Falls der Wunschtermin nicht möglich ist, welche anderen Termine passen für Sie?"></textarea>
                         </div>
+
+                        <!-- Beschwerden/Symptome -->
+                        <div class="mb-3">
+                            <label for="symptoms" class="form-label">Beschwerden/Symptome *</label>
+                            <textarea class="form-control" id="symptoms" name="symptoms" rows="3" required placeholder="Bitte beschreiben Sie kurz Ihre Beschwerden oder den Grund Ihres Besuchs"></textarea>
+                        </div>
+
+                        <!-- Krankenkasse -->
+                        <div class="mb-3">
+                            <label for="insurance" class="form-label">Krankenkasse *</label>
+                            <input type="text" class="form-control" id="insurance" name="insurance" required>
+                        </div>
+
+                        <!-- Überweisungsschein -->
+                        <div class="mb-3">
+                            <label class="form-label d-block">Überweisungsschein vorhanden? *</label>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="referral" id="referralYes" value="Ja" required>
+                                <label class="form-check-label" for="referralYes">Ja</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="referral" id="referralNo" value="Nein" required>
+                                <label class="form-check-label" for="referralNo">Nein</label>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="message" class="form-label">Weitere Anmerkungen</label>
+                            <textarea class="form-control" id="message" name="message" rows="3" placeholder="Haben Sie noch weitere Fragen oder Anmerkungen?"></textarea>
+                        </div>
+
                         <div class="mb-3 form-check">
                             <input type="checkbox" class="form-check-input" id="privacy" name="privacy" required>
                             <label class="form-check-label" for="privacy">
                                 Ich stimme der Verarbeitung meiner Daten gemäß der Datenschutzerklärung zu *
                             </label>
                         </div>
+
                         <button type="submit" class="btn btn-primary">Anfrage absenden</button>
                     </form>
                 </div>
