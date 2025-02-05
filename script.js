@@ -91,6 +91,90 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // Multi-Step Form Handling
+    const form = document.getElementById('appointmentForm');
+    const steps = form.querySelectorAll('.form-step');
+    const progressBar = document.querySelector('.progress-bar');
+    const totalSteps = steps.length;
+
+    // Next Step Buttons
+    form.querySelectorAll('.next-step').forEach(button => {
+        button.addEventListener('click', function() {
+            const currentStep = this.closest('.form-step');
+            const currentStepNum = parseInt(currentStep.dataset.step);
+            
+            // Validate current step
+            const inputs = currentStep.querySelectorAll('input[required], select[required], textarea[required]');
+            let isValid = true;
+            
+            inputs.forEach(input => {
+                if (!input.value) {
+                    isValid = false;
+                    input.classList.add('is-invalid');
+                } else {
+                    input.classList.remove('is-invalid');
+                    input.classList.add('is-valid');
+                }
+            });
+
+            if (isValid) {
+                // Update progress bar
+                const progress = (currentStepNum / totalSteps) * 100;
+                progressBar.style.width = `${progress}%`;
+
+                // Hide current step with animation
+                currentStep.style.opacity = '0';
+                currentStep.style.transform = 'translateX(-100px)';
+                
+                setTimeout(() => {
+                    currentStep.classList.remove('active');
+                    // Show next step with animation
+                    const nextStep = form.querySelector(`[data-step="${currentStepNum + 1}"]`);
+                    nextStep.classList.add('active');
+                    setTimeout(() => {
+                        nextStep.style.opacity = '1';
+                        nextStep.style.transform = 'translateX(0)';
+                    }, 50);
+                }, 300);
+            }
+        });
+    });
+
+    // Previous Step Buttons
+    form.querySelectorAll('.prev-step').forEach(button => {
+        button.addEventListener('click', function() {
+            const currentStep = this.closest('.form-step');
+            const currentStepNum = parseInt(currentStep.dataset.step);
+            
+            // Update progress bar
+            const progress = ((currentStepNum - 2) / totalSteps) * 100;
+            progressBar.style.width = `${progress}%`;
+
+            // Hide current step with animation
+            currentStep.style.opacity = '0';
+            currentStep.style.transform = 'translateX(100px)';
+            
+            setTimeout(() => {
+                currentStep.classList.remove('active');
+                // Show previous step with animation
+                const prevStep = form.querySelector(`[data-step="${currentStepNum - 1}"]`);
+                prevStep.classList.add('active');
+                setTimeout(() => {
+                    prevStep.style.opacity = '1';
+                    prevStep.style.transform = 'translateX(0)';
+                }, 50);
+            }, 300);
+        });
+    });
+
+    // Form Submit
+    form.addEventListener('submit', function(e) {
+        const submitButton = form.querySelector('button[type="submit"]');
+        submitButton.classList.add('loading');
+        submitButton.innerHTML = 'Wird gesendet...';
+        submitButton.disabled = true;
+    });
+
     // Service card hover effect
     document.querySelectorAll('.service-card').forEach(card => {
         card.addEventListener('mouseenter', function() {
