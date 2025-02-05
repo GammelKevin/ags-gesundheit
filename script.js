@@ -79,7 +79,6 @@ document.addEventListener('DOMContentLoaded', function() {
             const progress = ((currentStep - 1) / (steps.length - 1)) * 100;
             progressBar.style.width = `${progress}%`;
             
-            // Update step dots
             stepDots.forEach((dot, index) => {
                 if (index + 1 < currentStep) {
                     dot.classList.add('active');
@@ -96,69 +95,45 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Show Step with Animation
         function showStep(stepNumber) {
-            const currentStepElement = document.querySelector(`[data-step="${currentStep}"]`);
-            const nextStepElement = document.querySelector(`[data-step="${stepNumber}"]`);
-            
-            // Hide current step
-            if (currentStepElement) {
-                currentStepElement.style.opacity = '0';
-                currentStepElement.style.transform = stepNumber > currentStep ? 
-                    'translateX(-50px) scale(0.95)' : 'translateX(50px) scale(0.95)';
-                
-                setTimeout(() => {
-                    currentStepElement.classList.remove('active');
-                    
-                    // Show next step
-                    nextStepElement.classList.add('active');
-                    setTimeout(() => {
-                        nextStepElement.style.opacity = '1';
-                        nextStepElement.style.transform = 'translateX(0) scale(1)';
-                    }, 50);
-                }, 300);
-            } else {
-                nextStepElement.classList.add('active');
-                nextStepElement.style.opacity = '1';
-                nextStepElement.style.transform = 'translateX(0) scale(1)';
-            }
-            
-            currentStep = stepNumber;
-            updateProgress();
-        }
-
-        // Validate Current Step
-        function validateStep(stepNumber) {
-            const currentStepElement = document.querySelector(`[data-step="${stepNumber}"]`);
-            const requiredFields = currentStepElement.querySelectorAll('[required]');
-            let isValid = true;
-
-            requiredFields.forEach(field => {
-                if (!field.value) {
-                    isValid = false;
-                    field.classList.add('is-invalid');
-                    field.classList.remove('is-valid');
-                    
-                    // Shake animation for invalid fields
-                    field.style.animation = 'none';
-                    field.offsetHeight; // Trigger reflow
-                    field.style.animation = 'shake 0.5s ease-in-out';
-                } else {
-                    field.classList.remove('is-invalid');
-                    field.classList.add('is-valid');
-                }
+            steps.forEach(step => {
+                step.style.display = 'none';
+                step.classList.remove('active');
             });
 
-            return isValid;
+            const targetStep = document.querySelector(`[data-step="${stepNumber}"]`);
+            if (targetStep) {
+                targetStep.style.display = 'block';
+                setTimeout(() => {
+                    targetStep.classList.add('active');
+                }, 50);
+                
+                currentStep = stepNumber;
+                updateProgress();
+            }
         }
 
         // Next/Previous buttons
         nextButtons.forEach(button => {
             button.addEventListener('click', () => {
-                if (validateStep(currentStep)) {
-                    // Add success animation to the current step dot
-                    const currentDot = document.querySelector(`.step-dot[data-step="${currentStep}"]`);
-                    currentDot.style.animation = 'successPop 0.5s ease-out';
-                    
-                    // Proceed to next step
+                const currentStepElement = document.querySelector(`[data-step="${currentStep}"]`);
+                const inputs = currentStepElement.querySelectorAll('input[required], select[required], textarea[required]');
+                let isValid = true;
+
+                inputs.forEach(input => {
+                    if (!input.value.trim()) {
+                        isValid = false;
+                        input.classList.add('is-invalid');
+                        input.style.animation = 'shake 0.5s ease-in-out';
+                        setTimeout(() => {
+                            input.style.animation = '';
+                        }, 500);
+                    } else {
+                        input.classList.remove('is-invalid');
+                        input.classList.add('is-valid');
+                    }
+                });
+
+                if (isValid) {
                     showStep(currentStep + 1);
                 }
             });
