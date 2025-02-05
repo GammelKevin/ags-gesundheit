@@ -2,24 +2,128 @@ document.addEventListener('DOMContentLoaded', function() {
     // Theme Switch
     const themeSwitch = document.querySelector('.theme-switch');
     const html = document.documentElement;
-    
-    // Always start with light theme
-    html.setAttribute('data-theme', 'light');
-    themeSwitch.classList.add('light');
 
-    // Theme Switch Click Handler
+    // Check for saved theme preference
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+        html.setAttribute('data-theme', savedTheme);
+    }
+
     themeSwitch.addEventListener('click', () => {
         const currentTheme = html.getAttribute('data-theme');
-        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-        
+        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
         html.setAttribute('data-theme', newTheme);
-        
-        if (newTheme === 'light') {
-            themeSwitch.classList.add('light');
-        } else {
-            themeSwitch.classList.remove('light');
-        }
+        localStorage.setItem('theme', newTheme);
     });
+
+    // Multi-step Form
+    const prevBtns = document.querySelectorAll('.prev-btn');
+    const nextBtns = document.querySelectorAll('.next-btn');
+    const progress = document.getElementById('progress');
+    const formSteps = document.querySelectorAll('.form-step');
+    const progressSteps = document.querySelectorAll('.progress-step');
+
+    let formStepsNum = 0;
+
+    nextBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            if (validateStep(formStepsNum)) {
+                formStepsNum++;
+                updateFormSteps();
+                updateProgressbar();
+            }
+        });
+    });
+
+    prevBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            formStepsNum--;
+            updateFormSteps();
+            updateProgressbar();
+        });
+    });
+
+    function updateFormSteps() {
+        formSteps.forEach(formStep => {
+            formStep.classList.contains('active') && formStep.classList.remove('active');
+        });
+
+        formSteps[formStepsNum].classList.add('active');
+    }
+
+    function updateProgressbar() {
+        progressSteps.forEach((progressStep, idx) => {
+            if (idx < formStepsNum + 1) {
+                progressStep.classList.add('active');
+                progressStep.classList.add('complete');
+            } else {
+                progressStep.classList.remove('active');
+                progressStep.classList.remove('complete');
+            }
+        });
+
+        const progressActive = document.querySelectorAll('.progress-step.active');
+
+        progress.style.width = ((progressActive.length - 1) / (progressSteps.length - 1)) * 100 + '%';
+    }
+
+    function validateStep(step) {
+        const currentStep = formSteps[step];
+        const inputs = currentStep.querySelectorAll('input[required], select[required]');
+        let isValid = true;
+
+        inputs.forEach(input => {
+            if (!input.value) {
+                input.classList.add('is-invalid');
+                isValid = false;
+            } else {
+                input.classList.remove('is-invalid');
+            }
+        });
+
+        return isValid;
+    }
+
+    // Form Submission Animation
+    const appointmentForm = document.getElementById('appointmentForm');
+    if (appointmentForm) {
+        appointmentForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const submitBtn = appointmentForm.querySelector('button[type="submit"]');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Wird gesendet...';
+
+            try {
+                const formData = new FormData(appointmentForm);
+                const response = await fetch(appointmentForm.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    submitBtn.innerHTML = '<i class="fas fa-check"></i> Gesendet!';
+                    submitBtn.classList.remove('btn-primary');
+                    submitBtn.classList.add('btn-success');
+                    
+                    // Redirect after 2 seconds
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 2000);
+                } else {
+                    throw new Error('Netzwerkfehler');
+                }
+            } catch (error) {
+                submitBtn.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Fehler';
+                submitBtn.classList.remove('btn-primary');
+                submitBtn.classList.add('btn-danger');
+                submitBtn.disabled = false;
+            }
+        });
+    }
 
     // Logo Intro Animation
     const logoIntro = document.querySelector('.logo-intro');
@@ -60,106 +164,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Form Steps
-    const form = document.getElementById('appointmentForm');
-    if (form) {
-        const steps = document.querySelectorAll('.form-step');
-        const progressBar = document.querySelector('.progress-bar');
-        const stepDots = document.querySelectorAll('.step-dot');
-        const nextButtons = document.querySelectorAll('.next-step');
-        const prevButtons = document.querySelectorAll('.prev-step');
-        let currentStep = 1;
-
-        // Form Submit Handler
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const formData = new FormData(form);
-            const submitButton = form.querySelector('button[type="submit"]');
-            submitButton.disabled = true;
-            submitButton.innerHTML = 'Wird gesendet...';
-
-            // Direkt zur Danke-Seite weiterleiten
-            window.location.href = 'danke.html';
-        });
-
-        // Update Progress Bar and Step Dots
-        function updateProgress() {
-            const progress = ((currentStep - 1) / (steps.length - 1)) * 100;
-            progressBar.style.width = `${progress}%`;
-            
-            stepDots.forEach((dot, index) => {
-                if (index + 1 < currentStep) {
-                    dot.classList.add('active');
-                    dot.style.backgroundColor = 'var(--success-color)';
-                } else if (index + 1 === currentStep) {
-                    dot.classList.add('active');
-                    dot.style.backgroundColor = 'var(--primary-color)';
-                } else {
-                    dot.classList.remove('active');
-                    dot.style.backgroundColor = '';
-                }
-            });
-        }
-
-        // Show Step with Animation
-        function showStep(stepNumber) {
-            steps.forEach(step => {
-                step.style.display = 'none';
-                step.classList.remove('active');
-            });
-
-            const targetStep = document.querySelector(`.form-step[data-step="${stepNumber}"]`);
-            if (targetStep) {
-                targetStep.style.display = 'block';
-                setTimeout(() => {
-                    targetStep.classList.add('active');
-                }, 50);
-                
-                currentStep = stepNumber;
-                updateProgress();
-            }
-        }
-
-        // Next/Previous buttons
-        nextButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const currentStepElement = document.querySelector(`.form-step[data-step="${currentStep}"]`);
-                const inputs = currentStepElement.querySelectorAll('input[required], select[required], textarea[required]');
-                let isValid = true;
-
-                inputs.forEach(input => {
-                    if (!input.value.trim()) {
-                        isValid = false;
-                        input.classList.add('is-invalid');
-                        input.style.animation = 'shake 0.5s ease-in-out';
-                        setTimeout(() => {
-                            input.style.animation = '';
-                        }, 500);
-                    } else {
-                        input.classList.remove('is-invalid');
-                        input.classList.add('is-valid');
-                    }
-                });
-
-                if (isValid && currentStep < steps.length) {
-                    showStep(currentStep + 1);
-                }
-            });
-        });
-
-        prevButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                if (currentStep > 1) {
-                    showStep(currentStep - 1);
-                }
-            });
-        });
-
-        // Initialize first step
-        showStep(1);
-    }
-
     // Date Input Validation
     const dateInput = document.getElementById('date');
     if (dateInput) {
@@ -181,7 +185,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.head.appendChild(style);
 
     // Form Field Validation on Input
-    const formInputs = form.querySelectorAll('input, select, textarea');
+    const formInputs = document.querySelectorAll('input, select, textarea');
     formInputs.forEach(input => {
         input.addEventListener('input', () => {
             if (input.hasAttribute('required')) {

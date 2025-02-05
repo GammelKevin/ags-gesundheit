@@ -551,98 +551,180 @@ section {
     }
 }
 
-/* Form Styles */
+/* Appointment Section */
 .appointment-section {
-    background-color: var(--bg-dark);
+    padding: 120px 0 60px;
     min-height: 100vh;
-    padding-top: 100px;
-    perspective: 1000px;
+    display: flex;
+    align-items: center;
+    background: var(--bg-dark);
 }
 
 .appointment-form {
-    background: var(--bg-dark);
-    padding: 2rem;
-    border-radius: 1rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.appointment-form h3 {
-    color: var(--text-color);
-    margin-bottom: 1.5rem;
-}
-
-.appointment-form .form-label {
-    color: var(--text-color);
-}
-
-.appointment-form .form-control {
     background: var(--bg-dark-lighter);
+    padding: 2.5rem;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.appointment-form:hover {
+    transform: translateY(-5px) rotateX(2deg) rotateY(2deg);
+}
+
+.form-step {
+    display: none;
+    opacity: 0;
+    transform: translateX(20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.form-step.active {
+    display: block;
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.form-navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+    gap: 1rem;
+}
+
+/* Progress Bar */
+.progress-bar {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    margin: 2rem 0 4rem;
+    max-width: 100%;
+}
+
+.progress-bar::before {
+    content: "";
+    background-color: var(--bg-dark-light);
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    height: 4px;
+    width: 100%;
+    z-index: 0;
+}
+
+.progress {
+    background-color: var(--primary-color);
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    height: 4px;
+    width: 0%;
+    z-index: 1;
+    transition: 0.4s ease;
+}
+
+.progress-step {
+    width: 2.5rem;
+    height: 2.5rem;
+    background-color: var(--bg-dark-light);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+    transition: 0.4s ease;
+}
+
+.progress-step.active {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+}
+
+.progress-step.complete {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+}
+
+/* Form Controls */
+.form-control {
+    background: var(--bg-dark);
     border: 1px solid var(--bg-dark-light);
     color: var(--text-color);
     padding: 0.75rem;
     border-radius: 0.5rem;
+    transition: all 0.3s ease;
 }
 
-.appointment-form .form-control:focus {
+.form-control:focus {
     box-shadow: 0 0 0 0.2rem rgba(var(--primary-rgb), 0.25);
     border-color: var(--primary-color);
+    background: var(--bg-dark-lighter);
 }
 
-.appointment-form textarea.form-control {
-    resize: vertical;
-    min-height: 100px;
+.form-label {
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+    font-weight: 500;
 }
 
-.appointment-form .btn-primary {
-    width: 100%;
-    padding: 0.75rem;
+/* Buttons */
+.btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
     font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    transition: all 0.3s ease;
 }
 
+.btn-primary {
+    background: var(--primary-color);
+    border: none;
+}
+
+.btn-primary:hover {
+    background: var(--primary-color-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(var(--primary-rgb), 0.4);
+}
+
+.btn-secondary {
+    background: var(--bg-dark-light);
+    border: none;
+    color: var(--text-color);
+}
+
+.btn-secondary:hover {
+    background: var(--bg-dark);
+    transform: translateY(-2px);
+}
+
+/* Responsive */
 @media (max-width: 768px) {
+    .appointment-section {
+        padding: 100px 0 40px;
+    }
+
     .appointment-form {
         padding: 1.5rem;
-        margin-bottom: 2rem;
     }
-}
 
-/* Progress Bar */
-.progress-container {
-    margin: 2rem 0;
-}
+    .progress-bar {
+        margin: 1.5rem 0 3rem;
+    }
 
-.progress {
-    height: 0.5rem;
-    background: var(--bg-light);
-    border-radius: 1rem;
-    overflow: hidden;
-    margin-bottom: 1rem;
-}
+    .form-navigation {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
 
-.progress-bar {
-    background: var(--primary-color);
-    transition: width 0.3s ease;
-}
-
-.step-dots {
-    display: flex;
-    justify-content: space-between;
-    margin: 1rem 0;
-}
-
-.step-dot {
-    width: 1rem;
-    height: 1rem;
-    border-radius: 50%;
-    background: var(--bg-light);
-    transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-.step-dot.active {
-    background: var(--primary-color);
-    transform: scale(1.2);
+    .btn {
+        width: 100%;
+    }
 }
 
 /* Form Navigation */
