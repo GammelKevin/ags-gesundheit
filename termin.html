@@ -55,28 +55,24 @@
                                 <div class="progress-bar" role="progressbar" style="width: 0%"></div>
                             </div>
                             <div class="step-dots">
-                                <span class="step-dot active" data-step="1">
+                                <div class="step-dot active">
                                     <i class="fas fa-user"></i>
-                                </span>
-                                <span class="step-dot" data-step="2">
-                                    <i class="fas fa-clipboard-list"></i>
-                                </span>
-                                <span class="step-dot" data-step="3">
-                                    <i class="fas fa-calendar-alt"></i>
-                                </span>
-                                <span class="step-dot" data-step="4">
-                                    <i class="fas fa-info-circle"></i>
-                                </span>
+                                </div>
+                                <div class="step-dot">
+                                    <i class="fas fa-calendar"></i>
+                                </div>
+                                <div class="step-dot">
+                                    <i class="fas fa-info"></i>
+                                </div>
                             </div>
                             <div class="step-labels">
-                                <span class="step-label active">Persönliche Daten</span>
-                                <span class="step-label">Behandlung</span>
-                                <span class="step-label">Termin</span>
-                                <span class="step-label">Zusatzinfos</span>
+                                <div class="step-label active">Persönliche Daten</div>
+                                <div class="step-label">Termindetails</div>
+                                <div class="step-label">Zusatzinfos</div>
                             </div>
                         </div>
 
-                        <form id="appointmentForm" action="https://formspree.io/f/xbjvyknw" method="POST">
+                        <form id="appointmentForm" action="https://formspree.io/f/xdoqgwjz" method="POST" class="appointment-form">
                             <!-- Step 1: Personal Info -->
                             <div class="form-step active" data-step="1">
                                 <h3>Persönliche Informationen</h3>

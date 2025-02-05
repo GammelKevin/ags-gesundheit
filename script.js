@@ -45,59 +45,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Update Progress
         const updateProgress = () => {
-            // Calculate progress percentage
             const progress = ((currentStep - 1) / (steps.length - 1)) * 100;
-            
-            // Animate progress bar
             progressBar.style.width = `${progress}%`;
             
-            // Update dots and labels
             stepDots.forEach((dot, index) => {
                 const step = index + 1;
-                const label = stepLabels[index];
-                
-                // Reset classes
                 dot.classList.remove('active', 'complete');
-                label.classList.remove('active');
-                
-                // Set appropriate classes
                 if (step === currentStep) {
                     dot.classList.add('active');
-                    label.classList.add('active');
+                    stepLabels[index].classList.add('active');
                 } else if (step < currentStep) {
                     dot.classList.add('complete');
+                    stepLabels[index].classList.remove('active');
+                } else {
+                    stepLabels[index].classList.remove('active');
                 }
             });
         };
 
-        // Show Step with Animation
+        // Show Step
         const showStep = (step) => {
-            const currentStepEl = document.querySelector(`.form-step[data-step="${currentStep}"]`);
-            const nextStepEl = document.querySelector(`.form-step[data-step="${step}"]`);
-            
-            // Hide current step
-            if (currentStepEl) {
-                currentStepEl.style.animation = 'fadeOut 0.3s ease forwards';
-                setTimeout(() => {
-                    currentStepEl.classList.remove('active');
-                    currentStepEl.style.animation = '';
-                }, 300);
+            steps.forEach(s => s.classList.remove('active'));
+            const nextStep = document.querySelector(`.form-step[data-step="${step}"]`);
+            if (nextStep) {
+                nextStep.classList.add('active');
+                currentStep = step;
+                updateProgress();
             }
-            
-            // Show next step
-            setTimeout(() => {
-                if (nextStepEl) {
-                    nextStepEl.classList.add('active');
-                    nextStepEl.style.animation = 'fadeIn 0.5s ease forwards';
-                }
-            }, 300);
-            
-            // Update progress
-            currentStep = step;
-            updateProgress();
         };
 
-        // Next Step with Validation
+        // Next Step
         const nextButtons = document.querySelectorAll('.next-btn');
         nextButtons.forEach(button => {
             button.addEventListener('click', () => {
@@ -106,21 +83,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 let isValid = true;
 
                 inputs.forEach(input => {
-                    if (!input.value) {
+                    if (!input.value.trim()) {
                         isValid = false;
                         input.classList.add('is-invalid');
-                        
-                        // Add shake animation
-                        input.style.animation = 'shake 0.5s ease';
-                        setTimeout(() => {
-                            input.style.animation = '';
-                        }, 500);
                     } else {
                         input.classList.remove('is-invalid');
                     }
                 });
 
-                if (isValid) {
+                if (isValid && currentStep < steps.length) {
                     showStep(currentStep + 1);
                 }
             });
@@ -130,76 +101,64 @@ document.addEventListener('DOMContentLoaded', () => {
         const prevButtons = document.querySelectorAll('.prev-btn');
         prevButtons.forEach(button => {
             button.addEventListener('click', () => {
-                showStep(currentStep - 1);
+                if (currentStep > 1) {
+                    showStep(currentStep - 1);
+                }
             });
         });
 
-        // Form Submit with Loading State
+        // Form Submit
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
             
-            const submitBtn = form.querySelector('.submit-btn');
-            const btnText = submitBtn.querySelector('.btn-text');
-            const spinner = submitBtn.querySelector('.spinner-border');
-            
-            // Disable button and show spinner
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
             submitBtn.disabled = true;
-            btnText.style.opacity = '0';
-            spinner.classList.remove('d-none');
+            submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Wird gesendet...';
             
             try {
-                const formData = new FormData(form);
                 const response = await fetch(form.action, {
                     method: 'POST',
-                    body: formData,
+                    body: new FormData(form),
                     headers: {
                         'Accept': 'application/json'
                     }
                 });
                 
                 if (response.ok) {
-                    // Success animation and message
-                    const formContainer = form.closest('.appointment-form');
-                    formContainer.style.animation = 'fadeOut 0.3s ease forwards';
-                    
-                    setTimeout(() => {
-                        formContainer.innerHTML = `
-                            <div class="text-center" style="animation: fadeIn 0.5s ease forwards;">
-                                <i class="fas fa-check-circle text-success" style="font-size: 4rem;"></i>
-                                <h3 class="mt-4">Vielen Dank!</h3>
-                                <p>Ihre Terminanfrage wurde erfolgreich gesendet. Wir werden uns schnellstmöglich bei Ihnen melden.</p>
-                                <a href="index.html" class="btn btn-primary mt-4">
-                                    <i class="fas fa-home"></i> Zurück zur Startseite
-                                </a>
-                            </div>
-                        `;
-                    }, 300);
+                    form.innerHTML = `
+                        <div class="text-center">
+                            <i class="fas fa-check-circle text-success" style="font-size: 4rem;"></i>
+                            <h3 class="mt-4">Vielen Dank!</h3>
+                            <p>Ihre Terminanfrage wurde erfolgreich gesendet.</p>
+                            <p>Wir werden uns schnellstmöglich bei Ihnen melden.</p>
+                            <a href="index.html" class="btn btn-primary mt-4">
+                                <i class="fas fa-home me-2"></i>Zurück zur Startseite
+                            </a>
+                        </div>
+                    `;
                 } else {
                     throw new Error('Fehler beim Senden');
                 }
             } catch (error) {
-                // Error animation and message
                 submitBtn.disabled = false;
-                btnText.style.opacity = '1';
-                spinner.classList.add('d-none');
+                submitBtn.innerHTML = originalText;
                 
                 const errorDiv = document.createElement('div');
                 errorDiv.className = 'alert alert-danger mt-3';
-                errorDiv.textContent = 'Es ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.';
-                errorDiv.style.animation = 'shake 0.5s ease';
-                
+                errorDiv.innerHTML = `
+                    <i class="fas fa-exclamation-circle me-2"></i>
+                    Es ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.
+                `;
                 form.insertBefore(errorDiv, form.firstChild);
                 
                 setTimeout(() => {
-                    errorDiv.style.animation = 'fadeOut 0.3s ease forwards';
-                    setTimeout(() => {
-                        errorDiv.remove();
-                    }, 300);
+                    errorDiv.remove();
                 }, 5000);
             }
         });
 
-        // Initialize first step
+        // Initialize
         updateProgress();
     }
 
