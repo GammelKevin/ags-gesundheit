@@ -447,4 +447,18 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     });
+
+    // Intro Logic
+    const intro = document.querySelector('.intro');
+    const mainContent = document.querySelector('.main-content');
+
+    // Show main content after 5 seconds
+    setTimeout(() => {
+        intro.style.opacity = '0';
+        intro.style.transition = 'opacity 0.5s ease';
+        setTimeout(() => {
+            intro.style.display = 'none';
+            mainContent.style.display = 'block';
+        }, 500);
+    }, 1000); // Change time as needed
 });
